@@ -1,0 +1,131 @@
+---
+const currentYear = new Date().getFullYear();
+---
+<footer class="bg-brand-blue text-slate-300 pt-16 pb-8 border-t-4 border-brand-red">
+  <div class="main-grid-container grid grid-cols-1 md:grid-cols-3 gap-10">
+    <!-- O nas -->
+    <div class="flex flex-col gap-4">
+      <a href="/" class="flex items-center gap-3">
+        <div class="w-10 h-10 overflow-hidden rounded-lg bg-white p-0.5">
+          <img src="/logo.jpg" alt="Logo Zimmermann" class="w-full h-full object-cover rounded" />
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display font-bold text-white text-base leading-tight">
+            Zimmermann
+          </span>
+          <span class="text-[10px] font-bold text-brand-red uppercase tracking-widest">
+            Ubezpieczenia
+          </span>
+        </div>
+      </a>
+      <p class="text-sm text-slate-400 leading-relaxed mt-2">
+        Jesteśmy rodzinną multiagencją z 24-letnim doświadczeniem. Jako partner Unilink S.A. porównujemy oferty ponad 40 towarzystw, aby zapewnić Ci najlepszą ochronę w najniższej cenie.
+      </p>
+      <div class="flex items-center gap-3 mt-2">
+        <a
+          href="https://www.facebook.com/ubezpieczeniazimmermannkalisz?locale=pl_PL"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="p-2 rounded-lg bg-slate-800 text-white hover:bg-brand-red transition-colors duration-300"
+          aria-label="Facebook"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+            <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Szybkie Linki -->
+    <div class="flex flex-col gap-4">
+      <h3 class="font-display font-bold text-white text-base tracking-wider uppercase border-l-2 border-brand-red pl-3">
+        Nawigacja
+      </h3>
+      <ul class="flex flex-col gap-2.5 text-sm">
+        <li>
+          <a href="#oferta" class="hover:text-white hover:underline transition-all">Nasza oferta</a>
+        </li>
+        <li>
+          <a href="#dlaczego-my" class="hover:text-white hover:underline transition-all">Dlaczego warto nam zaufać?</a>
+        </li>
+        <li>
+          <a href="#kontakt" class="hover:text-white hover:underline transition-all">Skontaktuj się z nami</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Dane Kontaktowe -->
+    <div class="flex flex-col gap-4">
+      <h3 class="font-display font-bold text-white text-base tracking-wider uppercase border-l-2 border-brand-red pl-3">
+        Kontakt & Adres
+      </h3>
+      <ul class="flex flex-col gap-3 text-sm">
+        <!-- Kalisz -->
+        <li class="flex items-start gap-2.5">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brand-red shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <div>
+            <p class="font-semibold text-white">Biuro Kalisz</p>
+            <p class="text-slate-400">ul. Konopnickiej 3-5, lok. 10</p>
+            <p class="text-slate-400">62-800 Kalisz</p>
+            <a
+              href="https://maps.google.com/?q=ul.+Konopnickiej+3-5,+Kalisz"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-xs text-brand-red hover:underline mt-1 inline-block"
+            >
+              Wyznacz trasę &rarr;
+            </a>
+          </div>
+        </li>
+        <!-- Krotoszyn -->
+        <li class="flex items-start gap-2.5">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brand-red shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <div>
+            <p class="font-semibold text-white">Biuro Krotoszyn</p>
+            <p class="text-slate-400">ul. Piastowska 30</p>
+            <p class="text-slate-400">63-700 Krotoszyn</p>
+            <a
+              href="https://maps.google.com/?q=ul.+Piastowska+30,+Krotoszyn"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-xs text-brand-red hover:underline mt-1 inline-block"
+            >
+              Wyznacz trasę &rarr;
+            </a>
+          </div>
+        </li>
+        <!-- Telefony -->
+        <li class="flex items-start gap-2.5">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brand-red shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+          </svg>
+          <div class="flex flex-col gap-1">
+            <a href="tel:789315400" class="text-white hover:text-brand-red font-semibold transition-colors">
+              789 315 400 <span class="text-xs text-slate-500 font-normal">(Biuro Kalisz)</span>
+            </a>
+            <a href="tel:502252048" class="text-white hover:text-brand-red font-semibold transition-colors">
+              502 252 048 <span class="text-xs text-slate-500 font-normal">(Rafał)</span>
+            </a>
+            <a href="tel:506092200" class="text-white hover:text-brand-red font-semibold transition-colors">
+              506 092 200 <span class="text-xs text-slate-500 font-normal">(Igor)</span>
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Copyright -->
+  <div class="main-grid-container mt-12 pt-8 border-t border-slate-800 text-center text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-4">
+    <p>&copy; {currentYear} Ubezpieczenia Zimmermann. Wszelkie prawa zastrzeżone.</p>
+    <p class="flex items-center gap-1">
+      Stworzone z pasją do bezpiecznego jutra
+    </p>
+  </div>
+</footer>

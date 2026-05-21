@@ -1,0 +1,30 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Multiagencja Ubezpieczeniowa Zimmermann - Kalisz i Krotoszyn. 24 lata doświadczenia, partner Unilink S.A. Porównujemy oferty ponad 40 towarzystw. Ubezpieczenia komunikacyjne, majątkowe, życiowe, rolne i kredyty." } = Astro.props;
+---
+
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/jpg" href="/logo.jpg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/logo.jpg" />
+  </head>
+  <body class="flex flex-col min-h-screen bg-slate-50 text-slate-900 selection:bg-brand-red selection:text-white">
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx astro *)",
+      "mcp__web-reader__webReader",
+      "mcp__web-search-prime__web_search_prime",
+      "Bash(xxd /Users/kamilglapinski_mbp14/Desktop/zimmermann-website/src/layouts/Layout.astro)",
+      "Bash(xxd /Users/kamilglapinski_mbp14/Desktop/zimmermann-website/src/pages/index.astro)",
+      "Bash(screencapture -x /tmp/zimmermann-current.png)",
+      "Bash(git init *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "tavily-search"
+  ]
+}
