@@ -1,6 +1,7 @@
 name: Verify office coordinates
 
 on:
+  pull_request:
   push:
     branches:
       - agent/zimmermann-premium-redesign
