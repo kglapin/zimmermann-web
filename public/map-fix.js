@@ -61,8 +61,11 @@
     mapNode.setAttribute('aria-label', `Interaktywna mapa biura Zimmermann ${city}`);
     wrapper.appendChild(mapNode);
 
+    let map;
+    let marker;
+
     try {
-      const map = window.L.map(mapNode, {
+      map = window.L.map(mapNode, {
         center: fallback,
         zoom: 15,
         scrollWheelZoom: false,
@@ -75,7 +78,7 @@
         attribution: '&copy; OpenStreetMap',
       }).addTo(map);
 
-      const marker = window.L.circleMarker(fallback, {
+      marker = window.L.circleMarker(fallback, {
         radius: 9,
         color: '#ffffff',
         weight: 3,
@@ -84,20 +87,24 @@
       }).addTo(map);
 
       marker.bindPopup(`<strong>Zimmermann — ${city}</strong><br>${address}`).openPopup();
-
       setTimeout(() => map.invalidateSize(), 150);
       setTimeout(() => map.invalidateSize(), 700);
+    } catch (error) {
+      console.warn('Nie udało się uruchomić mapy:', error);
+      createFallback(wrapper, directionsUrl);
+      return;
+    }
 
+    try {
       await wait(index * 1100);
       const preciseLocation = await geocodeAddress(address);
 
-      if (preciseLocation) {
+      if (preciseLocation && map && marker) {
         marker.setLatLng(preciseLocation);
         map.setView(preciseLocation, 17, { animate: true });
       }
     } catch (error) {
-      console.warn('Nie udało się uruchomić mapy:', error);
-      createFallback(wrapper, directionsUrl);
+      console.info('Dokładne położenie adresu nie zostało pobrane. Pozostawiono mapę miasta.', error);
     }
   }
 
