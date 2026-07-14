@@ -1,5 +1,5 @@
 /* Editorial split hero
- * Typography, documentary photography and a comparison sheet replace the generic full-bleed image layout.
+ * A restrained moving grid and architectural contour add depth without decorative UI cards.
  */
 
 .hero--editorial {
@@ -7,50 +7,92 @@
   min-height: 0;
   display: block;
   overflow: hidden;
+  isolation: isolate;
   color: var(--ink);
-  background: var(--cream);
+  background: #eee9e0;
 }
 
 .hero--editorial::before {
   position: absolute;
-  top: 0;
-  right: 0;
-  width: min(34vw, 520px);
-  height: 100%;
-  border-left: 1px solid rgba(7, 20, 47, 0.08);
-  background: rgba(255, 255, 255, 0.22);
+  z-index: -2;
+  inset: -90px;
+  background-image:
+    linear-gradient(rgba(7, 20, 47, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(7, 20, 47, 0.045) 1px, transparent 1px),
+    radial-gradient(circle at 14% 12%, rgba(255, 255, 255, 0.92), transparent 34%),
+    radial-gradient(circle at 82% 58%, rgba(220, 36, 48, 0.085), transparent 31%);
+  background-position: 0 0, 0 0, 0 0, 0 0;
+  background-size: 72px 72px, 72px 72px, 100% 100%, 100% 100%;
   content: '';
   pointer-events: none;
+  transform: translate3d(0, 0, 0);
+  animation: hero-grid-drift 28s linear infinite;
+}
+
+.hero--editorial::after {
+  position: absolute;
+  z-index: -1;
+  top: -46%;
+  right: -24%;
+  width: min(66vw, 980px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(7, 20, 47, 0.1);
+  border-radius: 50%;
+  box-shadow:
+    inset 0 0 0 118px rgba(255, 255, 255, 0.055),
+    inset 0 0 0 119px rgba(7, 20, 47, 0.035),
+    inset 0 0 0 250px rgba(255, 255, 255, 0.025);
+  content: '';
+  pointer-events: none;
+  animation: hero-contour-shift 18s ease-in-out infinite alternate;
+}
+
+@keyframes hero-grid-drift {
+  to {
+    background-position: 72px 72px, 72px 72px, 4% 2%, 96% 64%;
+  }
+}
+
+@keyframes hero-contour-shift {
+  from {
+    transform: translate3d(-1.5%, -1%, 0) rotate(-5deg);
+  }
+  to {
+    transform: translate3d(2%, 2.5%, 0) rotate(7deg);
+  }
+}
+
+@keyframes hero-frame-float {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-6px, 8px, 0);
+  }
+}
+
+@keyframes hero-accent-breathe {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scaleY(0.78);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scaleY(1);
+  }
 }
 
 .hero__frame {
   position: relative;
   z-index: 1;
-  padding-top: clamp(30px, 4vw, 54px);
-}
-
-.hero__mast {
-  min-height: 42px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid rgba(7, 20, 47, 0.18);
-  color: rgba(7, 20, 47, 0.62);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.105em;
-  line-height: 1.35;
-  text-transform: uppercase;
 }
 
 .hero__editorial-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(430px, 0.92fr);
-  gap: clamp(30px, 4vw, 64px);
+  gap: clamp(38px, 5vw, 78px);
   align-items: center;
-  padding: clamp(46px, 6vw, 82px) 0 clamp(40px, 5vw, 64px);
+  padding: clamp(72px, 8vw, 112px) 0 clamp(50px, 6vw, 82px);
 }
 
 .hero--editorial .hero__lead {
@@ -156,12 +198,37 @@
   padding-left: clamp(0px, 2vw, 26px);
 }
 
+.hero__visual::before {
+  position: absolute;
+  z-index: -1;
+  inset: 30px -24px -24px 34px;
+  border: 1px solid rgba(7, 20, 47, 0.17);
+  content: '';
+  pointer-events: none;
+  animation: hero-frame-float 9s ease-in-out infinite;
+}
+
+.hero__visual::after {
+  position: absolute;
+  z-index: 3;
+  top: 14%;
+  bottom: 14%;
+  left: 9px;
+  width: 2px;
+  background: linear-gradient(180deg, transparent, var(--red) 30%, var(--red) 70%, transparent);
+  content: '';
+  pointer-events: none;
+  transform-origin: center;
+  animation: hero-accent-breathe 6.5s ease-in-out infinite;
+}
+
 .hero__portrait {
   width: 100%;
   height: 660px;
   margin: 0;
   overflow: hidden;
   background: #d7d1c8;
+  box-shadow: 0 32px 90px rgba(7, 20, 47, 0.16);
 }
 
 .hero__portrait img {
@@ -178,85 +245,11 @@
   filter: saturate(0.96) contrast(1.02);
 }
 
-.hero__photo-index {
-  position: absolute;
-  top: 18px;
-  right: -20px;
-  z-index: 2;
-  padding: 9px 11px;
-  color: rgba(255, 255, 255, 0.84);
-  background: var(--navy);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.11em;
-  line-height: 1.2;
-  text-transform: uppercase;
-  writing-mode: vertical-rl;
-}
-
-.hero-analysis {
-  position: absolute;
-  z-index: 4;
-  right: -30px;
-  bottom: 38px;
-  width: min(280px, 72%);
-  padding: 24px 24px 20px;
-  border: 1px solid rgba(7, 20, 47, 0.18);
-  color: var(--ink);
-  background: rgba(255, 255, 255, 0.97);
-  box-shadow: 0 22px 60px rgba(7, 20, 47, 0.13);
-}
-
-.hero-analysis > span {
-  display: block;
-  padding-bottom: 13px;
-  border-bottom: 1px solid var(--line);
-  color: rgba(7, 20, 47, 0.58);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  line-height: 1.2;
-  text-transform: uppercase;
-}
-
-.hero-analysis ol {
-  display: grid;
-  gap: 0;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.hero-analysis li {
-  display: grid;
-  grid-template-columns: 30px minmax(0, 1fr);
-  align-items: center;
-  gap: 10px;
-  padding: 12px 0;
-  border-bottom: 1px solid rgba(7, 20, 47, 0.08);
-}
-
-.hero-analysis li:last-child {
-  border-bottom: 0;
-  padding-bottom: 4px;
-}
-
-.hero-analysis b {
-  color: var(--red);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-}
-
-.hero-analysis strong {
-  font-size: 13px;
-  font-weight: 700;
-}
-
 .hero__proof {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   border-top: 1px solid rgba(7, 20, 47, 0.18);
+  background: rgba(255, 255, 255, 0.18);
 }
 
 .hero__proof > div {
@@ -306,7 +299,7 @@
 @media (max-width: 1180px) {
   .hero__editorial-grid {
     grid-template-columns: minmax(0, 0.95fr) minmax(390px, 1.05fr);
-    gap: 32px;
+    gap: 38px;
   }
 
   .hero--editorial h1 {
@@ -319,21 +312,20 @@
     min-height: 600px;
     height: 600px;
   }
-
-  .hero-analysis {
-    right: -12px;
-  }
 }
 
 @media (max-width: 900px) {
-  .hero--editorial::before {
-    display: none;
+  .hero--editorial::after {
+    top: -24%;
+    right: -42%;
+    width: 108vw;
+    opacity: 0.7;
   }
 
   .hero__editorial-grid {
     grid-template-columns: 1fr;
-    gap: 46px;
-    padding-bottom: 46px;
+    gap: 52px;
+    padding: 66px 0 50px;
   }
 
   .hero--editorial h1 {
@@ -353,12 +345,16 @@
     justify-self: end;
   }
 
-  .hero__portrait {
-    height: 640px;
+  .hero__visual::before {
+    inset: 26px -18px -18px 28px;
   }
 
-  .hero-analysis {
-    right: 20px;
+  .hero__visual::after {
+    left: -1px;
+  }
+
+  .hero__portrait {
+    height: 640px;
   }
 
   .hero__proof {
@@ -371,23 +367,22 @@
 }
 
 @media (max-width: 760px) {
-  .hero__frame {
-    padding-top: 22px;
+  .hero--editorial::before {
+    inset: -50px;
+    background-size: 48px 48px, 48px 48px, 100% 100%, 100% 100%;
+    animation-duration: 24s;
   }
 
-  .hero__mast {
-    min-height: 34px;
-    padding-bottom: 12px;
-    font-size: 8px;
-  }
-
-  .hero__mast span:last-child {
-    display: none;
+  .hero--editorial::after {
+    top: -10%;
+    right: -64%;
+    width: 142vw;
+    opacity: 0.55;
   }
 
   .hero__editorial-grid {
-    gap: 32px;
-    padding: 38px 0 38px;
+    gap: 36px;
+    padding: 50px 0 40px;
   }
 
   .hero__meta {
@@ -429,26 +424,22 @@
     min-height: 0;
   }
 
+  .hero__visual::before {
+    inset: 18px -8px -10px 16px;
+  }
+
+  .hero__visual::after {
+    top: 12%;
+    bottom: 12%;
+    left: -1px;
+  }
+
   .hero__portrait {
     height: min(112vw, 520px);
   }
 
   .hero__portrait img {
     object-position: 58% center;
-  }
-
-  .hero__photo-index {
-    top: 14px;
-    right: -1px;
-  }
-
-  .hero-analysis {
-    position: relative;
-    right: auto;
-    bottom: auto;
-    width: calc(100% - 30px);
-    margin: -72px 15px 0;
-    padding: 21px 20px 17px;
   }
 
   .hero__proof {
@@ -488,5 +479,18 @@
 
   .hero__phone {
     width: max-content;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero--editorial::before,
+  .hero--editorial::after,
+  .hero__visual::before,
+  .hero__visual::after {
+    animation: none;
+  }
+
+  .hero__portrait:hover img {
+    transform: none;
   }
 }
