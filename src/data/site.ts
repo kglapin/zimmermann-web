@@ -124,8 +124,8 @@ export const offices: Office[] = [
     postcode: '62-800 Kalisz',
     phone: '789 315 400',
     tel: '+48789315400',
-    lat: 51.7611,
-    lng: 18.091,
+    lat: 51.7486634,
+    lng: 18.0757771,
     directions: 'https://www.google.com/maps/dir/?api=1&destination=Konopnickiej+3-5,+62-800+Kalisz',
   },
   {
@@ -134,8 +134,8 @@ export const offices: Office[] = [
     postcode: '63-700 Krotoszyn',
     phone: '502 252 048',
     tel: '+48502252048',
-    lat: 51.6952,
-    lng: 17.4374,
+    lat: 51.6954181,
+    lng: 17.4327915,
     directions: 'https://www.google.com/maps/dir/?api=1&destination=Piastowska+30,+63-700+Krotoszyn',
   },
 ];
