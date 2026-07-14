@@ -5,7 +5,10 @@ import { business, services } from '../data/site';
 <section class="contact" id="kontakt" aria-labelledby="contact-title">
   <div class="shell contact__inner">
     <div class="contact__copy" data-reveal="left">
-      <span class="eyebrow eyebrow--light">Bezpłatne porównanie</span>
+      <span class="section-kicker section-kicker--light">
+        <span class="section-kicker__index" aria-hidden="true">08</span>
+        <span class="section-kicker__label">Kontakt</span>
+      </span>
       <h2 id="contact-title">Zacznijmy od rozmowy</h2>
       <p>Wybierz kategorię i zostaw numer. Oddzwonimy, żeby ustalić najważniejsze informacje.</p>
       <a class="contact__phone" href={`tel:${business.primaryTel}`}>
