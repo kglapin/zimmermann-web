@@ -1,0 +1,30 @@
+/* Centered proof strip in the editorial hero. */
+.hero__proof > div,
+.hero__proof > div:first-child {
+  min-height: 112px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 9px;
+  padding: 24px clamp(18px, 2.5vw, 34px) 26px;
+  text-align: center;
+}
+
+.hero__proof strong {
+  display: block;
+}
+
+.hero__proof span {
+  max-width: 190px;
+  display: block;
+  text-wrap: balance;
+}
+
+@media (max-width: 760px) {
+  .hero__proof > div,
+  .hero__proof > div:first-child {
+    min-height: 96px;
+    padding: 20px 18px;
+  }
+}
