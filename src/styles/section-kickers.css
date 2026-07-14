@@ -1,0 +1,62 @@
+/* Editorial section index
+ * A restrained numbered label replaces the generic uppercase line-and-label pattern.
+ */
+
+.section-kicker {
+  width: max-content;
+  max-width: 100%;
+  display: inline-grid;
+  grid-template-columns: 28px minmax(0, auto);
+  align-items: baseline;
+  gap: 12px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid rgba(7, 20, 47, 0.18);
+  color: var(--ink);
+  font-family: 'DM Sans', Arial, sans-serif;
+  line-height: 1.1;
+}
+
+.section-kicker__index {
+  color: var(--red);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.035em;
+  font-variant-numeric: tabular-nums;
+}
+
+.section-kicker__label {
+  min-width: 0;
+  color: currentColor;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+.section-kicker--light {
+  color: rgba(255, 255, 255, 0.84);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.section-kicker--light .section-kicker__index {
+  color: #ff747c;
+}
+
+/* Keep the label restrained inside narrow editorial rails. */
+.statement__rail .section-kicker {
+  width: 100%;
+  grid-template-columns: 28px minmax(0, 1fr);
+}
+
+@media (max-width: 760px) {
+  .section-kicker {
+    grid-template-columns: 25px minmax(0, auto);
+    gap: 10px;
+    padding-bottom: 8px;
+  }
+
+  .section-kicker__label {
+    font-size: 12px;
+  }
+}

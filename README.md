@@ -1,43 +1,68 @@
-# Astro Starter Kit: Minimal
+# Ubezpieczenia Zimmermann
 
-```sh
-npm create astro@latest -- --template minimal
+Strona główna multiagencji ubezpieczeniowej w Kaliszu i Krotoszynie, zbudowana w Astro.
+
+## Uruchomienie
+
+```bash
+npm ci
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Kontrola przed publikacją:
 
-## 🚀 Project Structure
+```bash
+npm test
+```
 
-Inside of your Astro project, you'll see the following folders and files:
+Polecenie uruchamia walidator struktury oraz produkcyjny build Astro.
+
+## Struktura
 
 ```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+src/
+├── components/        # sekcje i elementy strony
+├── data/site.ts       # oferta, biura, FAQ, opinie i dane firmy
+├── layouts/Layout.astro
+├── pages/
+│   ├── index.astro
+│   └── polityka-prywatnosci.astro
+└── styles/global.css  # jeden skonsolidowany system CSS
+public/
+└── site.js            # menu, FAQ, zakładki, animacje, mapy i formularz
+api/
+└── contact.js         # funkcja serwerowa formularza dla Vercel
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Formularz kontaktowy
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Endpoint `/api/contact` wysyła wiadomości przez Resend. W projekcie Vercel trzeba dodać:
 
-Any static assets, like images, can be placed in the `public/` directory.
+- `RESEND_API_KEY`
+- `CONTACT_TO_EMAIL`
+- `CONTACT_FROM_EMAIL`
 
-## 🧞 Commands
+Adres nadawcy musi należeć do domeny zweryfikowanej w Resend. Gdy endpoint lub konfiguracja poczty są niedostępne, formularz automatycznie przechodzi do trybu awaryjnego: na telefonie przygotowuje SMS, a na komputerze kopiuje treść zgłoszenia.
 
-All commands are run from the root of the project, from a terminal:
+## SEO
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Ustaw `PUBLIC_SITE_URL` na docelowy adres strony. Zmienna jest używana do generowania:
 
-## 👀 Want to learn more?
+- canonical URL,
+- Open Graph,
+- Twitter Cards,
+- danych strukturalnych `InsuranceAgency`.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Przykład znajduje się w `.env.example`.
+
+## Mapy
+
+Mapy korzystają z Leaflet i OpenStreetMap. Współrzędne biur są zapisane statycznie w `src/data/site.ts`, dlatego strona nie wykonuje zapytań do publicznych usług geokodowania przy każdym wejściu.
+
+## Automatyczna kontrola
+
+Workflow `.github/workflows/quality.yml` uruchamia przy każdym pushu i pull requeście:
+
+1. `npm ci`,
+2. `npm run validate`,
+3. `npm run build`.

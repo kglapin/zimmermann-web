@@ -1,12 +1,71 @@
 ---
 import '../styles/global.css';
+import '../styles/typography-fixes.css';
+import '../styles/partners-logos.css';
+import '../styles/offer-images.css';
+import '../styles/section-kickers.css';
+import '../styles/faq-enhancements.css';
+import '../styles/hero-editorial.css';
+import '../styles/hero-proof-centering.css';
+import { business, faqs, offices } from '../data/site';
 
 interface Props {
   title: string;
   description?: string;
+  noindex?: boolean;
 }
 
-const { title, description = "Multiagencja Ubezpieczeniowa Zimmermann - Kalisz i Krotoszyn. 24 lata doświadczenia, partner Unilink S.A. Porównujemy oferty ponad 40 towarzystw. Ubezpieczenia komunikacyjne, majątkowe, życiowe, rolne i kredyty." } = Astro.props;
+const {
+  title,
+  description = business.description,
+  noindex = false,
+} = Astro.props;
+
+const siteOrigin = import.meta.env.PUBLIC_SITE_URL || Astro.url.origin;
+const canonical = new URL(Astro.url.pathname, siteOrigin);
+const socialImage = new URL('/logo.jpg', siteOrigin);
+const isHomePage = Astro.url.pathname === '/';
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'InsuranceAgency',
+  name: business.name,
+  url: siteOrigin,
+  description,
+  logo: socialImage.href,
+  image: socialImage.href,
+  telephone: business.primaryTel,
+  foundingDate: String(business.foundedYear),
+  areaServed: ['Kalisz', 'Krotoszyn', 'Wielkopolska'],
+  department: offices.map((office) => ({
+    '@type': 'InsuranceAgency',
+    name: `${business.name} — ${office.city}`,
+    telephone: office.tel,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: office.address.replace('ul. ', ''),
+      postalCode: office.postcode.split(' ')[0],
+      addressLocality: office.city,
+      addressCountry: 'PL',
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: office.lat,
+      longitude: office.lng,
+    },
+  })),
+};
+const faqStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(([question, answer]) => ({
+    '@type': 'Question',
+    name: question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: answer,
+    },
+  })),
+};
 ---
 
 <!doctype html>
@@ -14,17 +73,45 @@ const { title, description = "Multiagencja Ubezpieczeniowa Zimmermann - Kalisz i
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/jpg" href="/logo.jpg" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#07142f" />
+    <meta name="format-detection" content="telephone=yes" />
+    <link rel="icon" type="image/jpeg" href="/logo.jpg" />
+    <link rel="canonical" href={canonical.href} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://upload.wikimedia.org" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://www.google.com" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" />
+
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pl_PL" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="/logo.jpg" />
+    <meta property="og:url" content={canonical.href} />
+    <meta property="og:image" content={socialImage.href} />
+    <meta property="og:site_name" content={business.name} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage.href} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
+    {isHomePage && <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)}></script>}
   </head>
-  <body class="flex flex-col min-h-screen bg-slate-50 text-slate-900 selection:bg-brand-red selection:text-white">
+  <body>
+    <a class="skip-link" href="#start">Przejdź do treści</a>
     <slot />
+    <script is:inline defer src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script is:inline defer src="/site.js"></script>
+    <script is:inline defer src="/offer-images.js"></script>
   </body>
 </html>

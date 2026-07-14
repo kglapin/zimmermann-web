@@ -1,0 +1,42 @@
+---
+import { statementLines } from '../data/site';
+const words = statementLines.flatMap(([, text]) => text.split(' '));
+let wordIndex = 0;
+---
+
+<section class="statement" data-statement aria-labelledby="statement-title">
+  <div class="statement__sticky">
+    <div class="shell statement__layout">
+      <aside class="statement__rail">
+        <span class="section-kicker section-kicker--light">
+          <span class="section-kicker__index" aria-hidden="true">01</span>
+          <span class="section-kicker__label">Nasza rola</span>
+        </span>
+        <h2 id="statement-title" class="sr-only">Jak pomagamy wybrać ubezpieczenie</h2>
+        <div class="statement__index" aria-hidden="true">
+          <strong data-statement-current>01</strong><i></i><span>03</span>
+        </div>
+        <div class="statement__phases" aria-hidden="true">
+          {statementLines.map(([label], index) => (
+            <span class:list={['statement__phase', { active: index === 0 }]} data-statement-phase>{label}</span>
+          ))}
+        </div>
+      </aside>
+
+      <div class="statement__content">
+        <p aria-label={statementLines.map(([, text]) => text).join(' ')}>
+          {statementLines.map(([, text]) => (
+            <span class="statement__line" data-statement-line>
+              {text.split(' ').map((word) => {
+                const index = wordIndex++;
+                return <span class="statement__word" data-statement-word data-word-index={index}>{word}&nbsp;</span>;
+              })}
+            </span>
+          ))}
+        </p>
+        <div class="statement__progress" aria-hidden="true"><i data-statement-progress></i></div>
+        <script type="application/json" data-statement-config set:html={JSON.stringify({ wordCount: words.length, phaseCount: statementLines.length })}></script>
+      </div>
+    </div>
+  </div>
+</section>

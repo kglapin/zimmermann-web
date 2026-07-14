@@ -2,26 +2,28 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
-import Services from '../components/Services.astro';
-import Reviews from '../components/Reviews.astro';
-import TrustSection from '../components/TrustSection.astro';
-import ContactForm from '../components/ContactForm.astro';
+import Statement from '../components/Statement.astro';
+import InsuranceExplorer from '../components/InsuranceExplorer.astro';
+import ProcessAndClaims from '../components/ProcessAndClaims.astro';
+import Locations from '../components/Locations.astro';
+import ReviewsAndFaq from '../components/ReviewsAndFaq.astro';
+import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
 ---
 
 <Layout
-	title="Ubezpieczenia Zimmermann Kalisz | Doradztwo i Tanie Ubezpieczenia"
-	description="Multiagencja Ubezpieczeniowa Zimmermann - Kalisz i Krotoszyn. Partner Unilink S.A. Ponad 40 towarzystw. Ubezpieczenia komunikacyjne (OC/AC), majątkowe, życiowe, rolnicze, medyczne oraz kredyty. 24 lata doświadczenia."
+  title="Ubezpieczenia Zimmermann | Kalisz i Krotoszyn"
+  description="Rodzinna multiagencja ubezpieczeniowa w Kaliszu i Krotoszynie. Porównujemy oferty wielu towarzystw i pomagamy również po zakupie polisy."
 >
-	<Header />
-
-	<main class="flex-grow">
-		<Hero />
-		<Services />
-		<Reviews />
-		<TrustSection />
-		<ContactForm />
-	</main>
-
-	<Footer />
+  <Header />
+  <main id="start">
+    <Hero />
+    <Statement />
+    <InsuranceExplorer />
+    <ProcessAndClaims />
+    <Locations />
+    <ReviewsAndFaq />
+    <Contact />
+  </main>
+  <Footer />
 </Layout>

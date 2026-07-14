@@ -1,0 +1,71 @@
+---
+import { business, services } from '../data/site';
+---
+
+<section class="contact" id="kontakt" aria-labelledby="contact-title">
+  <div class="shell contact__inner">
+    <div class="contact__copy" data-reveal="left">
+      <span class="section-kicker section-kicker--light">
+        <span class="section-kicker__index" aria-hidden="true">08</span>
+        <span class="section-kicker__label">Kontakt</span>
+      </span>
+      <h2 id="contact-title">Zacznijmy od rozmowy</h2>
+      <p>Wybierz kategorię i zostaw numer. Oddzwonimy, żeby ustalić najważniejsze informacje.</p>
+      <a class="contact__phone" href={`tel:${business.primaryTel}`}>
+        <small>Wolisz zadzwonić?</small><strong>{business.primaryPhone}</strong>
+      </a>
+    </div>
+
+    <div class="wizard" data-wizard data-reveal="right">
+      <div data-step="1">
+        <small>Krok 1 z 2</small>
+        <h3>Co chcesz ubezpieczyć?</h3>
+        <div class="wizard__types" data-reveal-group>
+          {services.map((service) => (
+            <button type="button" data-type={service.title}>
+              <span>{service.title}</span><i aria-hidden="true">→</i>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div data-step="2" hidden>
+        <button class="back" type="button" data-back>← Wróć</button>
+        <small>Krok 2 z 2</small>
+        <h3>Jak możemy się skontaktować?</h3>
+
+        <form data-contact-form novalidate>
+          <input type="hidden" name="type" />
+          <label>
+            Imię
+            <input name="name" autocomplete="given-name" required minlength="2" placeholder="Jan" />
+            <span class="field-error" data-error-for="name"></span>
+          </label>
+          <label>
+            Telefon
+            <input name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="500 600 700" />
+            <span class="field-error" data-error-for="phone"></span>
+          </label>
+          <label>
+            Informacje dodatkowe
+            <textarea name="message" rows="3" maxlength="1000" placeholder="Np. data końca obecnej polisy"></textarea>
+          </label>
+          <label class="honeypot" aria-hidden="true">
+            Strona internetowa
+            <input name="website" tabindex="-1" autocomplete="off" />
+          </label>
+          <label class="consent">
+            <input type="checkbox" name="consent" required />
+            <span>Zgadzam się na kontakt w sprawie wyceny i zapoznałem się z <a href="/polityka-prywatnosci/">polityką prywatności</a>.</span>
+          </label>
+          <span class="field-error" data-error-for="consent"></span>
+          <button class="btn btn--red full" type="submit" data-submit>
+            <span>Wyślij prośbę o kontakt</span>
+          </button>
+        </form>
+
+        <div class="status" data-status role="status" aria-live="polite" hidden></div>
+      </div>
+    </div>
+  </div>
+</section>
