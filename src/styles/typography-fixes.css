@@ -1,0 +1,67 @@
+/* Final typography safeguards.
+ * Prevent browser line-breaking inside words and keep display headings balanced.
+ */
+
+h1,
+h2,
+h3,
+.section-heading h2,
+.faq__intro h2,
+.process__content h2,
+.claims__intro h2,
+.locations__heading h2,
+.contact__copy h2,
+.service-panel h3,
+.map-card h3,
+.wizard h3,
+.faq-item button strong,
+.service-tab strong,
+.wizard__types button > span,
+.review footer strong {
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+  -webkit-hyphens: none;
+  hyphens: none;
+}
+
+h1,
+h2,
+h3,
+.section-heading h2,
+.faq__intro h2,
+.process__content h2,
+.claims__intro h2,
+.locations__heading h2,
+.contact__copy h2 {
+  text-wrap: balance;
+}
+
+/* "Najważniejsze" must stay intact. Give the title enough horizontal room
+   before switching the FAQ to the stacked layout. */
+.faq__inner {
+  grid-template-columns: minmax(390px, 0.82fr) minmax(0, 1.18fr);
+}
+
+.faq__intro h2 {
+  max-width: 11.5ch;
+}
+
+@media (max-width: 1100px) {
+  .faq__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .faq__intro {
+    position: static;
+  }
+
+  .faq__intro h2 {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 760px) {
+  .faq__intro h2 {
+    font-size: clamp(40px, 12vw, 50px);
+  }
+}
