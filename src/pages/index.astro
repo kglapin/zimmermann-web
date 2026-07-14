@@ -63,6 +63,27 @@ const faqs = [
   ['Czy polisę można zawrzeć zdalnie?', 'Wiele polis przygotowujemy telefonicznie lub online.'],
   ['Czy pomagacie po szkodzie?', 'Tak. Wskazujemy pierwsze kroki i właściwy sposób zgłoszenia.'],
 ];
+
+const offices = [
+  {
+    city: 'Kalisz',
+    address: 'ul. Konopnickiej 3-5, lok. 10',
+    postcode: '62-800 Kalisz',
+    phone: '789 315 400',
+    tel: '+48789315400',
+    map: 'https://www.google.com/maps?q=Konopnickiej+3-5,+62-800+Kalisz&output=embed',
+    directions: 'https://www.google.com/maps/dir/?api=1&destination=Konopnickiej+3-5,+62-800+Kalisz',
+  },
+  {
+    city: 'Krotoszyn',
+    address: 'ul. Piastowska 30',
+    postcode: '63-700 Krotoszyn',
+    phone: '502 252 048',
+    tel: '+48502252048',
+    map: 'https://www.google.com/maps?q=Piastowska+30,+63-700+Krotoszyn&output=embed',
+    directions: 'https://www.google.com/maps/dir/?api=1&destination=Piastowska+30,+63-700+Krotoszyn',
+  },
+];
 ---
 
 <Layout
@@ -87,6 +108,7 @@ const faqs = [
       <nav aria-label="Główna nawigacja">
         <a href="#oferta">Oferta</a>
         <a href="#proces">Jak pracujemy</a>
+        <a href="#lokalnie">Lokalnie</a>
         <a href="#opinie">Opinie</a>
         <a href="#kontakt">Kontakt</a>
       </nav>
@@ -94,9 +116,7 @@ const faqs = [
       <div class="header__actions">
         <a class="phone" href="tel:+48789315400">789 315 400</a>
         <a class="btn btn--red" href="#kontakt">Porównaj oferty</a>
-        <button class="menu" type="button" data-menu aria-label="Otwórz menu">
-          <span></span><span></span>
-        </button>
+        <button class="menu" type="button" data-menu aria-label="Otwórz menu"><span></span><span></span></button>
       </div>
     </div>
 
@@ -104,6 +124,7 @@ const faqs = [
       <a href="#oferta">Oferta</a>
       <a href="#proces">Jak pracujemy</a>
       <a href="#szkoda">Pomoc po szkodzie</a>
+      <a href="#lokalnie">Lokalnie</a>
       <a href="#opinie">Opinie</a>
       <a href="#kontakt">Kontakt</a>
     </div>
@@ -125,7 +146,6 @@ const faqs = [
           <span class="eyebrow eyebrow--light">Rodzinna multiagencja od 2002 roku</span>
           <h1>Dobra ochrona<br /><em>zaczyna się od rozmowy.</em></h1>
           <p>Porównujemy oferty wielu towarzystw i jasno pokazujemy różnice.</p>
-
           <div class="hero__actions">
             <a class="btn btn--red btn--large" href="#kontakt">Porównaj oferty</a>
             <a class="btn btn--glass btn--large" href="tel:+48789315400">Zadzwoń</a>
@@ -148,7 +168,7 @@ const faqs = [
       </div>
     </section>
 
-    <figure class="wide-shot" id="dalej">
+    <figure class="wide-shot" id="dalej" data-reveal-clip>
       <img
         src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=2400&q=90"
         alt="Rozmowa z doradcą"
@@ -161,14 +181,10 @@ const faqs = [
         <div class="shell statement__layout">
           <aside class="statement__rail">
             <span class="eyebrow eyebrow--light">Nasza rola</span>
-            <div class="statement__index" aria-hidden="true">
-              <strong data-statement-current>01</strong><i></i><span>03</span>
-            </div>
+            <div class="statement__index" aria-hidden="true"><strong data-statement-current>01</strong><i></i><span>03</span></div>
             <div class="statement__phases">
               {statementLines.map(([label], index) => (
-                <span class:list={['statement__phase', { active: index === 0 }]} data-statement-phase>
-                  {label}
-                </span>
+                <span class:list={['statement__phase', { active: index === 0 }]} data-statement-phase>{label}</span>
               ))}
             </div>
           </aside>
@@ -177,9 +193,7 @@ const faqs = [
             <p aria-label={statementLines.map(([, text]) => text).join(' ')}>
               {statementLines.map(([, text]) => (
                 <span class="statement__line" data-statement-line>
-                  {text.split(' ').map((word) => (
-                    <span class="statement__word" data-statement-word>{word}&nbsp;</span>
-                  ))}
+                  {text.split(' ').map((word) => <span class="statement__word" data-statement-word>{word}&nbsp;</span>)}
                 </span>
               ))}
             </p>
@@ -197,33 +211,23 @@ const faqs = [
         </div>
 
         <div class="explorer__layout">
-          <div class="explorer__nav" role="tablist" aria-label="Rodzaje ubezpieczeń">
+          <div class="explorer__nav" role="tablist" aria-label="Rodzaje ubezpieczeń" data-stagger-group>
             {services.map((service, index) => (
-              <button
-                type="button"
-                class:list={['service-tab', { active: index === 0 }]}
-                data-service={index}
-                role="tab"
-              >
-                <span>{String(index + 1).padStart(2, '0')}</span>
-                <strong>{service.title}</strong>
-                <i>↗</i>
+              <button type="button" class:list={['service-tab', { active: index === 0 }]} data-service={index} role="tab" data-stagger-item>
+                <span>{String(index + 1).padStart(2, '0')}</span><strong>{service.title}</strong><i>↗</i>
               </button>
             ))}
           </div>
 
-          <article class="service-panel" data-service-panel>
-            <div class="service-panel__image">
+          <article class="service-panel" data-service-panel data-reveal-right>
+            <div class="service-panel__image" data-reveal-clip>
               <img src={services[0].image} alt={services[0].title} data-service-image />
             </div>
-
             <div class="service-panel__copy">
               <span class="eyebrow" data-service-subtitle>{services[0].subtitle}</span>
               <h3 data-service-title>{services[0].title}</h3>
               <p data-service-description>{services[0].description}</p>
-              <ul data-service-points>
-                {services[0].points.map((point) => <li>{point}</li>)}
-              </ul>
+              <ul data-service-points>{services[0].points.map((point) => <li>{point}</li>)}</ul>
               <a href="#kontakt" class="link">Poproś o porównanie →</a>
             </div>
           </article>
@@ -232,38 +236,33 @@ const faqs = [
       <script type="application/json" data-services set:html={JSON.stringify(services)}></script>
     </section>
 
-    <figure class="editorial-shot">
+    <figure class="editorial-shot" data-reveal-clip>
       <img
         src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=2400&q=90"
         alt="Spokojne wnętrze domu"
         data-parallax-image
       />
-      <figcaption>Ochrona dopasowana do życia.</figcaption>
+      <figcaption data-reveal-right>Ochrona dopasowana do życia.</figcaption>
     </figure>
 
     <section class="process" id="proces">
       <div class="shell process__grid">
-        <figure class="process__photo image-reveal">
-          <img
-            src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1800&q=88"
-            alt="Zespół podczas rozmowy"
-          />
+        <figure class="process__photo" data-reveal-left data-reveal-clip>
+          <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1800&q=88" alt="Zespół podczas rozmowy" />
         </figure>
 
-        <div class="process__content">
-          <span class="eyebrow eyebrow--light reveal">Jak pracujemy</span>
-          <h2 class="reveal">Prosto i bez presji.</h2>
-
-          <div class="steps">
+        <div class="process__content" data-reveal-right>
+          <span class="eyebrow eyebrow--light">Jak pracujemy</span>
+          <h2>Prosto i bez presji.</h2>
+          <div class="steps" data-stagger-group>
             {[
               ['Słuchamy', 'Ustalamy, co chcesz zabezpieczyć.'],
               ['Porównujemy', 'Sprawdzamy cenę, zakres i wyłączenia.'],
               ['Wyjaśniamy', 'Pokazujemy najważniejsze różnice.'],
               ['Pomagamy', 'Zostajemy również po zakupie.'],
             ].map(([title, text], index) => (
-              <article class="step reveal-card">
-                <span>{String(index + 1).padStart(2, '0')}</span>
-                <div><h3>{title}</h3><p>{text}</p></div>
+              <article class="step" data-stagger-item>
+                <span>{String(index + 1).padStart(2, '0')}</span><div><h3>{title}</h3><p>{text}</p></div>
               </article>
             ))}
           </div>
@@ -271,121 +270,112 @@ const faqs = [
       </div>
     </section>
 
-    <section class="section claims" id="szkoda">
-      <div class="shell claims__inner">
-        <figure class="claims__visual image-reveal">
-          <img
-            src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1800&q=88"
-            alt="Samochód na drodze"
-          />
-          <span class="note note--1">Zabezpiecz miejsce</span>
-          <span class="note note--2">Zbierz dokumenty</span>
-          <span class="note note--3">Zadzwoń do doradcy</span>
-        </figure>
+    <section class="claims-v3" id="szkoda">
+      <div class="shell">
+        <header class="claims-v3__intro">
+          <div data-reveal-left>
+            <span class="eyebrow">Po szkodzie</span>
+            <h2>Jasny plan działania.</h2>
+          </div>
+          <p data-reveal-right>Pomagamy uporządkować pierwsze kroki i wybrać właściwy sposób zgłoszenia.</p>
+        </header>
 
-        <div class="claims__copy">
-          <span class="eyebrow reveal">Po szkodzie</span>
-          <h2 class="reveal">Pomagamy dalej.</h2>
-          <p class="reveal">Wskazujemy pierwsze kroki i właściwy sposób zgłoszenia.</p>
-          <div class="claims__actions reveal">
-            <a class="btn btn--dark" href="tel:+48789315400">Zadzwoń po pomoc</a>
-            <a class="link" href="#kontakt">Kontakt →</a>
+        <div class="claims-v3__stage">
+          <figure class="claims-v3__media" data-reveal-clip>
+            <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=2000&q=90" alt="Samochód na drodze" />
+            <figcaption>Jedna rozmowa. Konkretne kolejne kroki.</figcaption>
+          </figure>
+
+          <div class="claims-v3__panel" data-reveal-right>
+            <ol class="claims-v3__steps" data-stagger-group>
+              <li data-stagger-item><span>01</span><div><strong>Zabezpiecz miejsce</strong><p>Zadbaj o bezpieczeństwo i ogranicz dalsze szkody.</p></div></li>
+              <li data-stagger-item><span>02</span><div><strong>Zbierz podstawowe materiały</strong><p>Zdjęcia, dane uczestników i najważniejsze dokumenty.</p></div></li>
+              <li data-stagger-item><span>03</span><div><strong>Skontaktuj się z nami</strong><p>Wskażemy właściwy kanał i pomożemy uporządkować zgłoszenie.</p></div></li>
+            </ol>
+            <div class="claims-v3__actions">
+              <a class="btn btn--red" href="tel:+48789315400">Zadzwoń po pomoc</a>
+              <a class="link link--light" href="#kontakt">Kontakt →</a>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <section class="stats">
-      <div class="shell stats__grid">
-        <div><strong data-counter="40">0</strong><span>towarzystw</span></div>
-        <div><strong data-counter="24">0</strong><span>lata doświadczenia</span></div>
-        <div><strong data-counter="2">0</strong><span>biura</span></div>
-        <div><strong>5.0</strong><span>średnia ocen</span></div>
+      <div class="shell stats__grid" data-stagger-group>
+        <div data-stagger-item><strong data-counter="40">0</strong><span>towarzystw</span></div>
+        <div data-stagger-item><strong data-counter="24">0</strong><span>lata doświadczenia</span></div>
+        <div data-stagger-item><strong data-counter="2">0</strong><span>biura</span></div>
+        <div data-stagger-item><strong>5.0</strong><span>średnia ocen</span></div>
       </div>
     </section>
 
-    <figure class="team-shot">
-      <img
-        src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2400&q=90"
-        alt="Zespół doradców"
-        data-parallax-image
-      />
-      <figcaption>
-        <span class="eyebrow eyebrow--light">Lokalnie</span>
-        <strong>Kalisz i Krotoszyn.</strong>
-      </figcaption>
-    </figure>
+    <section class="local-v3" id="lokalnie">
+      <div class="local-v3__hero">
+        <img
+          src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2400&q=90"
+          alt="Zespół doradców"
+          data-parallax-image
+        />
+        <div class="local-v3__shade"></div>
+        <div class="shell local-v3__heading" data-reveal-left>
+          <span class="eyebrow eyebrow--light">Lokalnie</span>
+          <h2>Kalisz i Krotoszyn.</h2>
+        </div>
+      </div>
+
+      <div class="shell local-v3__maps" data-stagger-group>
+        {offices.map((office) => (
+          <article class="map-card" data-stagger-item>
+            <header>
+              <div><small>Biuro</small><h3>{office.city}</h3></div>
+              <a href={office.directions} target="_blank" rel="noreferrer">Wyznacz trasę ↗</a>
+            </header>
+            <div class="map-card__meta">
+              <span>{office.address}<br />{office.postcode}</span>
+              <a href={`tel:${office.tel}`}>{office.phone}</a>
+            </div>
+            <div class="map-card__map">
+              <iframe
+                src={office.map}
+                title={`Mapa biura Zimmermann ${office.city}`}
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
 
     <section class="section reviews" id="opinie">
       <div class="shell">
-        <div class="heading heading--compact">
-          <span class="eyebrow reveal">Opinie</span>
-          <h2 class="reveal">Zaufanie w praktyce.</h2>
+        <div class="heading heading--compact" data-reveal-left>
+          <span class="eyebrow">Opinie</span>
+          <h2>Zaufanie w praktyce.</h2>
         </div>
-
-        <div class="reviews__grid">
+        <div class="reviews__grid" data-stagger-group>
           {reviews.map(([name, text], index) => (
-            <article class:list={['review reveal-card', { 'review--dark': index === 0 }]}>
-              <b>“</b>
-              <p>{text}</p>
-              <footer>
-                <i>{name.charAt(0)}</i>
-                <span><strong>{name}</strong><small>Opinia klienta</small></span>
-              </footer>
+            <article class:list={['review', { 'review--dark': index === 0 }]} data-stagger-item>
+              <b>“</b><p>{text}</p>
+              <footer><i>{name.charAt(0)}</i><span><strong>{name}</strong><small>Opinia klienta</small></span></footer>
             </article>
           ))}
         </div>
       </div>
     </section>
 
-    <section class="section locations">
-      <div class="shell locations__inner">
-        <div class="locations__copy">
-          <span class="eyebrow reveal">Dwa biura</span>
-          <h2 class="reveal">Jesteśmy blisko.</h2>
-          <div class="location-tabs">
-            <button type="button" class="active" data-location="kalisz">Kalisz</button>
-            <button type="button" data-location="krotoszyn">Krotoszyn</button>
-          </div>
-        </div>
-
-        <div class="location-card active" data-location-card="kalisz">
-          <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1600&q=88" alt="Wnętrze biura" />
-          <div>
-            <small>Biuro Kalisz</small>
-            <h3>Konopnickiej 3-5</h3>
-            <p>lok. 10 · 62-800 Kalisz</p>
-            <a class="btn btn--red" href="tel:+48789315400">789 315 400</a>
-          </div>
-        </div>
-
-        <div class="location-card" data-location-card="krotoszyn">
-          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=88" alt="Wnętrze biura" />
-          <div>
-            <small>Biuro Krotoszyn</small>
-            <h3>Piastowska 30</h3>
-            <p>63-700 Krotoszyn</p>
-            <a class="btn btn--red" href="tel:+48502252048">502 252 048</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section class="section faq">
       <div class="shell faq__inner">
-        <div class="faq__intro">
-          <span class="eyebrow reveal">FAQ</span>
-          <h2 class="reveal">Najważniejsze odpowiedzi.</h2>
+        <div class="faq__intro" data-reveal-left>
+          <span class="eyebrow">FAQ</span>
+          <h2>Najważniejsze odpowiedzi.</h2>
         </div>
-
-        <div class="faq__list">
+        <div class="faq__list" data-reveal-right>
           {faqs.map(([question, answer], index) => (
-            <article class="faq-item reveal-card">
-              <button type="button" data-faq>
-                <span>{String(index + 1).padStart(2, '0')}</span>
-                <strong>{question}</strong>
-                <i>+</i>
-              </button>
+            <article class="faq-item">
+              <button type="button" data-faq><span>{String(index + 1).padStart(2, '0')}</span><strong>{question}</strong><i>+</i></button>
               <div><p>{answer}</p></div>
             </article>
           ))}
@@ -395,29 +385,25 @@ const faqs = [
 
     <section class="contact" id="kontakt">
       <div class="shell contact__inner">
-        <div class="contact__copy">
-          <span class="eyebrow eyebrow--light reveal">Bezpłatne porównanie</span>
-          <h2 class="reveal">Zacznijmy od rozmowy.</h2>
-          <p class="reveal">Wybierz kategorię i zostaw numer telefonu.</p>
+        <div class="contact__copy" data-reveal-left>
+          <span class="eyebrow eyebrow--light">Bezpłatne porównanie</span>
+          <h2>Zacznijmy od rozmowy.</h2>
+          <p>Wybierz kategorię i zostaw numer telefonu.</p>
         </div>
 
-        <div class="wizard reveal-card" data-wizard>
+        <div class="wizard" data-wizard data-reveal-right>
           <div data-step="1">
-            <small>Krok 1 z 2</small>
-            <h3>Co chcesz ubezpieczyć?</h3>
-            <div class="wizard__types">
+            <small>Krok 1 z 2</small><h3>Co chcesz ubezpieczyć?</h3>
+            <div class="wizard__types" data-stagger-group>
               {services.map((service) => (
-                <button type="button" data-type={service.title}>
-                  <span>{service.title}</span><i>→</i>
-                </button>
+                <button type="button" data-type={service.title} data-stagger-item><span>{service.title}</span><i>→</i></button>
               ))}
             </div>
           </div>
 
           <div data-step="2" hidden>
             <button class="back" type="button" data-back>← Wróć</button>
-            <small>Krok 2 z 2</small>
-            <h3>Jak możemy się skontaktować?</h3>
+            <small>Krok 2 z 2</small><h3>Jak możemy się skontaktować?</h3>
             <form>
               <input type="hidden" name="type" />
               <label>Imię<input name="name" required placeholder="Jan" /></label>
@@ -426,10 +412,7 @@ const faqs = [
               <label class="consent"><input type="checkbox" required /><span>Zgadzam się na kontakt w sprawie wyceny.</span></label>
               <button class="btn btn--red full" type="submit">Przygotuj wiadomość</button>
             </form>
-            <div class="status" data-status hidden>
-              <strong>Wiadomość została przygotowana.</strong>
-              <span>Zadzwoń pod 789 315 400 lub wyślij przygotowany SMS.</span>
-            </div>
+            <div class="status" data-status hidden><strong>Wiadomość została przygotowana.</strong><span>Zadzwoń pod 789 315 400 lub wyślij przygotowany SMS.</span></div>
           </div>
         </div>
       </div>
@@ -439,40 +422,14 @@ const faqs = [
   <footer class="footer">
     <div class="footer__word">ZIMMERMANN</div>
     <div class="shell footer__grid">
-      <div>
-        <a class="brand brand--footer" href="#start">
-          <img src="/logo.jpg" alt="" />
-          <span><strong>Zimmermann</strong><small>Ubezpieczenia</small></span>
-        </a>
-        <p>Rodzinna multiagencja w Kaliszu i Krotoszynie.</p>
-      </div>
-
-      <div>
-        <h3>Oferta</h3>
-        <a href="#oferta">Samochód</a>
-        <a href="#oferta">Dom i mieszkanie</a>
-        <a href="#oferta">Życie i zdrowie</a>
-        <a href="#oferta">Firma</a>
-      </div>
-
-      <div>
-        <h3>Kontakt</h3>
-        <a href="tel:+48789315400">Kalisz: 789 315 400</a>
-        <a href="tel:+48502252048">Rafał: 502 252 048</a>
-        <a href="tel:+48506092200">Igor: 506 092 200</a>
-      </div>
+      <div><a class="brand brand--footer" href="#start"><img src="/logo.jpg" alt="" /><span><strong>Zimmermann</strong><small>Ubezpieczenia</small></span></a><p>Rodzinna multiagencja w Kaliszu i Krotoszynie.</p></div>
+      <div><h3>Oferta</h3><a href="#oferta">Samochód</a><a href="#oferta">Dom i mieszkanie</a><a href="#oferta">Życie i zdrowie</a><a href="#oferta">Firma</a></div>
+      <div><h3>Kontakt</h3><a href="tel:+48789315400">Kalisz: 789 315 400</a><a href="tel:+48502252048">Rafał: 502 252 048</a><a href="tel:+48506092200">Igor: 506 092 200</a></div>
     </div>
-
-    <div class="shell footer__bottom">
-      <span>© 2026 Ubezpieczenia Zimmermann</span>
-      <span>Partner Unilink S.A.</span>
-    </div>
+    <div class="shell footer__bottom"><span>© 2026 Ubezpieczenia Zimmermann</span><span>Partner Unilink S.A.</span></div>
   </footer>
 
-  <div class="mobile-bar">
-    <a href="tel:+48789315400"><small>Telefon</small><strong>789 315 400</strong></a>
-    <a href="#kontakt">Wycena</a>
-  </div>
+  <div class="mobile-bar"><a href="tel:+48789315400"><small>Telefon</small><strong>789 315 400</strong></a><a href="#kontakt">Wycena</a></div>
 
   <script is:inline src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
   <script is:inline src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
@@ -484,10 +441,7 @@ const faqs = [
       const progress = document.querySelector('[data-progress]');
 
       menu?.addEventListener('click', () => mobileNav?.classList.toggle('open'));
-      mobileNav?.querySelectorAll('a').forEach((link) => {
-        link.addEventListener('click', () => mobileNav.classList.remove('open'));
-      });
-
+      mobileNav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => mobileNav.classList.remove('open')));
       addEventListener('scroll', () => {
         const max = document.documentElement.scrollHeight - innerHeight;
         if (progress) progress.style.transform = `scaleX(${max ? scrollY / max : 0})`;
@@ -497,25 +451,13 @@ const faqs = [
         button.addEventListener('click', () => button.closest('.faq-item')?.classList.toggle('open'));
       });
 
-      document.querySelectorAll('[data-location]').forEach((button) => {
-        button.addEventListener('click', () => {
-          const target = button.getAttribute('data-location');
-          document.querySelectorAll('[data-location]').forEach((item) => item.classList.toggle('active', item === button));
-          document.querySelectorAll('[data-location-card]').forEach((card) => {
-            card.classList.toggle('active', card.getAttribute('data-location-card') === target);
-          });
-        });
-      });
-
       const serviceData = JSON.parse(document.querySelector('[data-services]')?.textContent || '[]');
       document.querySelectorAll('[data-service]').forEach((button) => {
         button.addEventListener('click', () => {
           const service = serviceData[Number(button.getAttribute('data-service'))];
           const panel = document.querySelector('[data-service-panel]');
           if (!service || !panel) return;
-
           document.querySelectorAll('[data-service]').forEach((item) => item.classList.toggle('active', item === button));
-
           const swap = () => {
             panel.querySelector('[data-service-image]').src = service.image;
             panel.querySelector('[data-service-image]').alt = service.title;
@@ -524,20 +466,9 @@ const faqs = [
             panel.querySelector('[data-service-description]').textContent = service.description;
             panel.querySelector('[data-service-points]').innerHTML = service.points.map((point) => `<li>${point}</li>`).join('');
           };
-
           if (window.gsap && !reduce) {
-            gsap.to(panel, {
-              opacity: 0,
-              y: 12,
-              duration: 0.18,
-              onComplete: () => {
-                swap();
-                gsap.to(panel, { opacity: 1, y: 0, duration: 0.42, ease: 'power3.out' });
-              },
-            });
-          } else {
-            swap();
-          }
+            gsap.to(panel, { opacity: 0, y: 12, duration: 0.18, onComplete: () => { swap(); gsap.to(panel, { opacity: 1, y: 0, duration: 0.42, ease: 'power3.out' }); } });
+          } else swap();
         });
       });
 
@@ -550,84 +481,46 @@ const faqs = [
             wizard.querySelector('[data-step="2"]').hidden = false;
           });
         });
-
         wizard.querySelector('[data-back]')?.addEventListener('click', () => {
           wizard.querySelector('[data-step="2"]').hidden = true;
           wizard.querySelector('[data-step="1"]').hidden = false;
         });
-
         wizard.querySelector('form')?.addEventListener('submit', (event) => {
           event.preventDefault();
           const formData = new FormData(event.currentTarget);
           const message = `Dzień dobry, proszę o kontakt. Ubezpieczenie: ${formData.get('type')}. Imię: ${formData.get('name')}. Telefon: ${formData.get('phone')}. Informacje: ${formData.get('message') || 'brak'}.`;
-
-          if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-            location.href = `sms:+48789315400?body=${encodeURIComponent(message)}`;
-          } else {
-            navigator.clipboard?.writeText(message);
-            wizard.querySelector('[data-status]').hidden = false;
-          }
+          if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) location.href = `sms:+48789315400?body=${encodeURIComponent(message)}`;
+          else { navigator.clipboard?.writeText(message); wizard.querySelector('[data-status]').hidden = false; }
         });
       }
 
       if (reduce || !window.gsap || !window.ScrollTrigger) return;
       gsap.registerPlugin(ScrollTrigger);
 
-      gsap.from('.hero__lead > *', {
-        opacity: 0,
-        y: 28,
-        duration: 0.85,
-        stagger: 0.08,
-        ease: 'power3.out',
-      });
-
-      gsap.from('.hero__trust', {
-        opacity: 0,
-        y: 24,
-        duration: 0.9,
-        delay: 0.35,
-        ease: 'power3.out',
-      });
-
-      gsap.fromTo('[data-hero-image]', { scale: 1.08 }, {
-        scale: 1.02,
-        duration: 1.6,
-        ease: 'power2.out',
-      });
-
-      gsap.to('[data-hero-image]', {
-        yPercent: 8,
-        ease: 'none',
-        scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 },
-      });
+      gsap.from('.hero__lead > *', { opacity: 0, y: 28, duration: 0.85, stagger: 0.08, ease: 'power3.out' });
+      gsap.from('.hero__trust', { opacity: 0, y: 24, duration: 0.9, delay: 0.35, ease: 'power3.out' });
+      gsap.fromTo('[data-hero-image]', { scale: 1.08 }, { scale: 1.02, duration: 1.6, ease: 'power2.out' });
+      gsap.to('[data-hero-image]', { yPercent: 8, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
 
       gsap.utils.toArray('.reveal').forEach((element) => {
-        gsap.from(element, {
-          opacity: 0,
-          y: 24,
-          duration: 0.65,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: element, start: 'top 90%', once: true },
-        });
+        gsap.from(element, { opacity: 0, y: 24, duration: 0.65, ease: 'power3.out', scrollTrigger: { trigger: element, start: 'top 90%', once: true } });
       });
-
-      gsap.utils.toArray('.reveal-card').forEach((element) => {
-        gsap.from(element, {
-          opacity: 0,
-          y: 34,
-          duration: 0.7,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: element, start: 'top 92%', once: true },
-        });
+      gsap.utils.toArray('[data-reveal-left]').forEach((element) => {
+        gsap.from(element, { opacity: 0, x: -52, duration: 0.85, ease: 'power3.out', scrollTrigger: { trigger: element, start: 'top 88%', once: true } });
       });
-
+      gsap.utils.toArray('[data-reveal-right]').forEach((element) => {
+        gsap.from(element, { opacity: 0, x: 52, duration: 0.85, ease: 'power3.out', scrollTrigger: { trigger: element, start: 'top 88%', once: true } });
+      });
+      gsap.utils.toArray('[data-reveal-clip]').forEach((element) => {
+        gsap.fromTo(element, { clipPath: 'inset(0 0 100% 0)', opacity: 0.7 }, { clipPath: 'inset(0 0 0% 0)', opacity: 1, duration: 1.05, ease: 'power3.inOut', scrollTrigger: { trigger: element, start: 'top 88%', once: true } });
+      });
+      gsap.utils.toArray('[data-stagger-group]').forEach((group) => {
+        const items = group.querySelectorAll('[data-stagger-item]');
+        if (!items.length) return;
+        gsap.from(items, { opacity: 0, y: 28, scale: 0.98, duration: 0.65, stagger: 0.09, ease: 'power3.out', scrollTrigger: { trigger: group, start: 'top 88%', once: true } });
+      });
       gsap.utils.toArray('[data-parallax-image]').forEach((image) => {
-        gsap.fromTo(image, { yPercent: -5, scale: 1.06 }, {
-          yPercent: 5,
-          scale: 1.06,
-          ease: 'none',
-          scrollTrigger: { trigger: image.parentElement, start: 'top bottom', end: 'bottom top', scrub: 1 },
-        });
+        gsap.fromTo(image, { yPercent: -5, scale: 1.06 }, { yPercent: 5, scale: 1.06, ease: 'none', scrollTrigger: { trigger: image.parentElement, start: 'top bottom', end: 'bottom top', scrub: 1 } });
       });
 
       if (innerWidth > 850) {
@@ -637,30 +530,15 @@ const faqs = [
         const phases = gsap.utils.toArray('[data-statement-phase]');
         const bar = document.querySelector('[data-statement-progress]');
         const current = document.querySelector('[data-statement-current]');
-
         gsap.set(words, { opacity: 0.12, y: 14, filter: 'blur(4px)' });
         gsap.set(lines, { opacity: 0.5 });
         gsap.set(bar, { scaleX: 0, transformOrigin: 'left center' });
-
         const setPhase = (phaseIndex) => {
           phases.forEach((phase, index) => phase.classList.toggle('active', index === phaseIndex));
           lines.forEach((line, index) => line.classList.toggle('active', index <= phaseIndex));
           if (current) current.textContent = String(phaseIndex + 1).padStart(2, '0');
         };
-
-        gsap.timeline({
-          scrollTrigger: {
-            trigger: statement,
-            start: 'top top+=82',
-            end: 'bottom bottom',
-            scrub: 0.65,
-            invalidateOnRefresh: true,
-            onUpdate: (self) => {
-              const phase = Math.min(phases.length - 1, Math.floor(self.progress * phases.length));
-              setPhase(phase);
-            },
-          },
-        })
+        gsap.timeline({ scrollTrigger: { trigger: statement, start: 'top top+=82', end: 'bottom bottom', scrub: 0.65, invalidateOnRefresh: true, onUpdate: (self) => setPhase(Math.min(phases.length - 1, Math.floor(self.progress * phases.length))) } })
           .to(words, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1, stagger: 0.045, ease: 'none' }, 0)
           .to(bar, { scaleX: 1, duration: 1, ease: 'none' }, 0);
       }
@@ -668,14 +546,7 @@ const faqs = [
       document.querySelectorAll('[data-counter]').forEach((element) => {
         const state = { value: 0 };
         const target = Number(element.dataset.counter);
-        gsap.to(state, {
-          value: target,
-          duration: 1.4,
-          scrollTrigger: { trigger: element, start: 'top 90%', once: true },
-          onUpdate: () => {
-            element.textContent = Math.round(state.value) + (target === 40 ? '+' : '');
-          },
-        });
+        gsap.to(state, { value: target, duration: 1.4, scrollTrigger: { trigger: element, start: 'top 90%', once: true }, onUpdate: () => { element.textContent = Math.round(state.value) + (target === 40 ? '+' : ''); } });
       });
     };
 
