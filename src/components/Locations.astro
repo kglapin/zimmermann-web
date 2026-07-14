@@ -1,0 +1,49 @@
+---
+import { offices } from '../data/site';
+---
+
+<section class="locations" id="lokalnie" aria-labelledby="locations-title">
+  <div class="locations__hero">
+    <img
+      src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2400&q=88"
+      alt="Zespół doradców"
+      width="2400"
+      height="1600"
+      loading="lazy"
+      decoding="async"
+      data-parallax
+    />
+    <div class="locations__shade"></div>
+    <div class="shell locations__heading" data-reveal="left">
+      <span class="eyebrow eyebrow--light">Lokalnie</span>
+      <h2 id="locations-title">Kalisz i Krotoszyn.</h2>
+    </div>
+  </div>
+
+  <div class="shell locations__maps" data-reveal-group>
+    {offices.map((office) => (
+      <article class="map-card">
+        <header>
+          <div><small>Biuro</small><h3>{office.city}</h3></div>
+          <a href={office.directions} target="_blank" rel="noreferrer">Wyznacz trasę <span aria-hidden="true">↗</span></a>
+        </header>
+        <div class="map-card__meta">
+          <address>{office.address}<br />{office.postcode}</address>
+          <a href={`tel:${office.tel}`}>{office.phone}</a>
+        </div>
+        <div
+          class="map-card__map"
+          data-map
+          data-city={office.city}
+          data-address={`${office.address}, ${office.postcode}`}
+          data-lat={office.lat}
+          data-lng={office.lng}
+          data-directions={office.directions}
+          aria-label={`Mapa biura Zimmermann ${office.city}`}
+        >
+          <noscript><a href={office.directions}>Otwórz lokalizację w Google Maps</a></noscript>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
