@@ -87,9 +87,9 @@ export const services: Service[] = [
 ];
 
 export const statementLines = [
-  ['Najpierw słuchamy', 'Rozpoznajemy potrzeby.'],
-  ['Potem porównujemy', 'Pokazujemy różnice.'],
-  ['Zostajemy na dłużej', 'Pomagamy po szkodzie.'],
+  ['Najpierw słuchamy', 'Rozpoznajemy potrzeby'],
+  ['Potem porównujemy', 'Pokazujemy różnice'],
+  ['Zostajemy na dłużej', 'Pomagamy po szkodzie'],
 ] as const;
 
 export const processSteps = [
