@@ -1,5 +1,72 @@
 ---
 import { business } from '../data/site';
+
+const partners = [
+  {
+    id: 'pzu',
+    name: 'PZU',
+    logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a1/Powszechny_Zak%C5%82ad_Ubezpiecze%C5%84_logo.svg/250px-Powszechny_Zak%C5%82ad_Ubezpiecze%C5%84_logo.svg.png',
+    kind: 'image',
+  },
+  {
+    id: 'warta',
+    name: 'Warta',
+    logo: 'https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fwww.warta.pl&sz=256',
+    wordmark: 'warta.',
+    kind: 'wordmark',
+  },
+  {
+    id: 'ergo-hestia',
+    name: 'ERGO Hestia',
+    logo: 'https://upload.wikimedia.org/wikipedia/de/thumb/1/11/Ergo_Group_logo.svg/250px-Ergo_Group_logo.svg.png',
+    wordmark: 'HESTIA',
+    kind: 'combined',
+  },
+  {
+    id: 'allianz',
+    name: 'Allianz',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Allianz.svg/250px-Allianz.svg.png',
+    kind: 'image',
+  },
+  {
+    id: 'generali',
+    name: 'Generali',
+    logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/2/25/Assicurazioni_Generali_logo.svg/250px-Assicurazioni_Generali_logo.svg.png',
+    kind: 'image',
+  },
+  {
+    id: 'compensa',
+    name: 'Compensa',
+    logo: 'https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fwww.compensa.pl&sz=256',
+    wordmark: 'COMPENSA',
+    kind: 'wordmark',
+  },
+  {
+    id: 'uniqa',
+    name: 'UNIQA',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Uniqa_Insurance_Group_logo.svg/250px-Uniqa_Insurance_Group_logo.svg.png',
+    kind: 'image',
+  },
+  {
+    id: 'signal-iduna',
+    name: 'SIGNAL IDUNA',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Signal-iduna.svg/250px-Signal-iduna.svg.png',
+    kind: 'image',
+  },
+  {
+    id: 'wiener',
+    name: 'Wiener',
+    logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/eb/Wiener_St%C3%A4dtische.svg/250px-Wiener_St%C3%A4dtische.svg.png',
+    kind: 'image',
+  },
+  {
+    id: 'link4',
+    name: 'LINK4',
+    logo: 'https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fwww.link4.pl&sz=256',
+    wordmark: 'LINK4',
+    kind: 'wordmark',
+  },
+];
 ---
 
 <section class="hero" aria-labelledby="hero-title">
@@ -38,8 +105,26 @@ import { business } from '../data/site';
 </section>
 
 <section class="partners" aria-label="Towarzystwa ubezpieczeniowe">
+  <p class="sr-only">PZU, Warta, ERGO Hestia, Allianz, Generali, Compensa, UNIQA, SIGNAL IDUNA, Wiener i LINK4</p>
   <div class="partners__track" aria-hidden="true">
-    {['PZU', 'WARTA', 'ERGO HESTIA', 'ALLIANZ', 'GENERALI', 'COMPENSA', 'UNIQA', 'SIGNAL IDUNA', 'WIENER', 'LINK4', 'PZU', 'WARTA', 'ERGO HESTIA', 'ALLIANZ', 'GENERALI', 'COMPENSA', 'UNIQA', 'SIGNAL IDUNA', 'WIENER', 'LINK4'].map((name) => <span>{name}</span>)}
+    {[0, 1].map((groupIndex) => (
+      <div class="partners__group" aria-hidden={groupIndex === 1 ? 'true' : undefined}>
+        {partners.map((partner) => (
+          <span class:list={['partner-logo', `partner-logo--${partner.id}`, { 'partner-logo--wordmark': partner.kind === 'wordmark', 'partner-logo--combined': partner.kind === 'combined' }]}>
+            <img
+              src={partner.logo}
+              alt=""
+              width="250"
+              height="100"
+              loading="eager"
+              decoding="async"
+              referrerpolicy="no-referrer"
+            />
+            {partner.wordmark && <strong>{partner.wordmark}</strong>}
+          </span>
+        ))}
+      </div>
+    ))}
   </div>
 </section>
 
