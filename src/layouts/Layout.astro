@@ -1,6 +1,5 @@
 ---
 import '../styles/global.css';
-import '../styles/breathe.css';
 
 interface Props {
   title: string;
@@ -25,7 +24,7 @@ const { title, description = "Multiagencja Ubezpieczeniowa Zimmermann - Kalisz i
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/logo.jpg" />
   </head>
-  <body class="flex flex-col min-h-screen bg-slate-50 text-slate-900 selection:bg-brand-red selection:text-white">
+  <body>
     <slot />
   </body>
 </html>
