@@ -16,7 +16,9 @@ function escapeHtml(value) {
 
 function getClientIp(request) {
   const forwarded = request.headers['x-forwarded-for'];
-  return Array.isArray(forwarded) ? forwarded[0] : String(forwarded || request.socket?.remoteAddress || 'unknown').split(',')[0].trim();
+  return Array.isArray(forwarded)
+    ? forwarded[0]
+    : String(forwarded || request.socket?.remoteAddress || 'unknown').split(',')[0].trim();
 }
 
 function isRateLimited(ip) {
@@ -25,7 +27,24 @@ function isRateLimited(ip) {
   const recent = previous.filter((timestamp) => now - timestamp < 10 * 60 * 1000);
   recent.push(now);
   requests.set(ip, recent);
+
+  if (requests.size > 1000) {
+    for (const [key, timestamps] of requests) {
+      if (!timestamps.some((timestamp) => now - timestamp < 10 * 60 * 1000)) requests.delete(key);
+    }
+  }
+
   return recent.length > 5;
+}
+
+function parseBody(request) {
+  if (request.body && typeof request.body === 'object') return request.body;
+  if (typeof request.body !== 'string') return {};
+  try {
+    return JSON.parse(request.body || '{}');
+  } catch {
+    return null;
+  }
 }
 
 export default async function handler(request, response) {
@@ -37,12 +56,19 @@ export default async function handler(request, response) {
     return response.status(405).json({ ok: false, error: 'method_not_allowed' });
   }
 
+  const contentLength = Number(request.headers['content-length'] || 0);
+  if (contentLength > 20_000) {
+    return response.status(413).json({ ok: false, error: 'payload_too_large' });
+  }
+
   const ip = getClientIp(request);
   if (isRateLimited(ip)) {
     return response.status(429).json({ ok: false, error: 'rate_limited' });
   }
 
-  const body = typeof request.body === 'string' ? JSON.parse(request.body || '{}') : (request.body || {});
+  const body = parseBody(request);
+  if (!body) return response.status(400).json({ ok: false, error: 'invalid_json' });
+
   const name = clean(body.name, 80);
   const phone = clean(body.phone, 30);
   const type = clean(body.type, 80);
@@ -53,7 +79,7 @@ export default async function handler(request, response) {
   if (website) return response.status(200).json({ ok: true });
 
   const digits = phone.replace(/\D/g, '');
-  if (name.length < 2 || digits.length < 9 || digits.length > 15 || !type || !consent) {
+  if (name.length < 2 || digits.length < 9 || digits.length > 15 || !type || consent !== 'on') {
     return response.status(400).json({ ok: false, error: 'invalid_payload' });
   }
 
@@ -80,7 +106,6 @@ export default async function handler(request, response) {
       body: JSON.stringify({
         from,
         to: [to],
-        reply_to: to,
         subject: `Nowe zapytanie: ${type} — ${name}`,
         html: `
           <h1>Nowa prośba o kontakt</h1>
