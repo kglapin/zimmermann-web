@@ -1,4 +1,5 @@
 const EMAIL_ENDPOINT = 'https://api.resend.com/emails';
+const DEFAULT_CONTACT_TO_EMAIL = 'biuro@ubezpieczeniazimmermann.pl';
 const requests = new Map();
 
 function clean(value, maxLength = 1000) {
@@ -84,10 +85,10 @@ export default async function handler(request, response) {
   }
 
   const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.CONTACT_TO_EMAIL;
+  const to = process.env.CONTACT_TO_EMAIL || DEFAULT_CONTACT_TO_EMAIL;
   const from = process.env.CONTACT_FROM_EMAIL;
 
-  if (!apiKey || !to || !from) {
+  if (!apiKey || !from) {
     return response.status(503).json({ ok: false, error: 'email_not_configured' });
   }
 
