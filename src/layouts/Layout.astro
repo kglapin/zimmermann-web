@@ -4,7 +4,8 @@ import '../styles/typography-fixes.css';
 import '../styles/partners-logos.css';
 import '../styles/offer-images.css';
 import '../styles/section-kickers.css';
-import { business, offices } from '../data/site';
+import '../styles/faq-enhancements.css';
+import { business, faqs, offices } from '../data/site';
 
 interface Props {
   title: string;
@@ -21,6 +22,7 @@ const {
 const siteOrigin = import.meta.env.PUBLIC_SITE_URL || Astro.url.origin;
 const canonical = new URL(Astro.url.pathname, siteOrigin);
 const socialImage = new URL('/logo.jpg', siteOrigin);
+const isHomePage = Astro.url.pathname === '/';
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'InsuranceAgency',
@@ -47,6 +49,18 @@ const structuredData = {
       '@type': 'GeoCoordinates',
       latitude: office.lat,
       longitude: office.lng,
+    },
+  })),
+};
+const faqStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(([question, answer]) => ({
+    '@type': 'Question',
+    name: question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: answer,
     },
   })),
 };
@@ -89,6 +103,7 @@ const structuredData = {
     <meta name="twitter:image" content={socialImage.href} />
 
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
+    {isHomePage && <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)}></script>}
   </head>
   <body>
     <a class="skip-link" href="#start">Przejdź do treści</a>
