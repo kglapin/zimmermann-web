@@ -69,36 +69,65 @@ const partners = [
 ];
 ---
 
-<section class="hero" aria-labelledby="hero-title">
-  <div class="hero__media" aria-hidden="true">
-    <img
-      src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=2400&q=88"
-      alt=""
-      width="2400"
-      height="1600"
-      fetchpriority="high"
-      decoding="async"
-      data-hero-image
-    />
-  </div>
-  <div class="hero__shade"></div>
+<section class="hero hero--editorial" aria-labelledby="hero-title">
+  <div class="shell hero__frame">
+    <div class="hero__mast" aria-label="Informacje o firmie">
+      <span>Zimmermann / multiagencja ubezpieczeniowa</span>
+      <span>Kalisz · Krotoszyn · od {business.foundedYear}</span>
+    </div>
 
-  <div class="shell hero__content">
-    <div class="hero__lead" data-hero-lead>
-      <span class="eyebrow eyebrow--light">Rodzinna multiagencja od {business.foundedYear} roku</span>
-      <h1 id="hero-title">Dobra ochrona <em>zaczyna się od rozmowy</em></h1>
-      <p>Porównujemy oferty wielu towarzystw i jasno pokazujemy najważniejsze różnice.</p>
-      <div class="hero__actions">
-        <a class="btn btn--red btn--large" href="#kontakt">Porównaj oferty</a>
-        <a class="btn btn--glass btn--large" href={`tel:${business.primaryTel}`}>Zadzwoń</a>
+    <div class="hero__editorial-grid">
+      <div class="hero__lead" data-hero-lead>
+        <span class="hero__meta">{business.foundedYear} / Kalisz + Krotoszyn</span>
+        <h1 id="hero-title">
+          <span>Dobra ochrona</span>
+          <span>zaczyna się</span>
+          <em>od rozmowy.</em>
+        </h1>
+        <p>
+          Porównujemy nie tylko składkę. Sprawdzamy zakres, wyłączenia i warunki,
+          które mogą mieć znaczenie wtedy, gdy naprawdę potrzebujesz ubezpieczenia.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--red btn--large" href="#kontakt">Porównaj oferty</a>
+          <a class="hero__phone" href={`tel:${business.primaryTel}`}>
+            <span>Zadzwoń</span>
+            <strong>{business.primaryPhone}</strong>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero__visual" data-reveal="clip">
+        <figure class="hero__portrait">
+          <img
+            src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1600&q=88"
+            alt="Zespół doradców podczas spotkania w biurze"
+            width="1600"
+            height="2000"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </figure>
+
+        <span class="hero__photo-index" aria-hidden="true">01 / Rozmowa</span>
+
+        <aside class="hero-analysis" aria-label="Elementy porównania ofert" data-hero-trust>
+          <span>Jak porównujemy</span>
+          <ol>
+            <li><b>01</b><strong>Cenę</strong></li>
+            <li><b>02</b><strong>Zakres ochrony</strong></li>
+            <li><b>03</b><strong>Wyłączenia</strong></li>
+            <li><b>04</b><strong>Pomoc po szkodzie</strong></li>
+          </ol>
+        </aside>
       </div>
     </div>
 
-    <aside class="hero__trust" aria-label="Najważniejsze informacje" data-hero-trust>
-      <div><strong>40+</strong><span>towarzystw</span></div>
-      <div><strong>24 lata</strong><span>doświadczenia</span></div>
+    <div class="hero__proof" aria-label="Najważniejsze informacje" data-reveal-group>
+      <div><strong>40+</strong><span>towarzystw w porównaniu</span></div>
+      <div><strong>Od {business.foundedYear}</strong><span>rodzinna multiagencja</span></div>
       <div><strong>2 biura</strong><span>Kalisz i Krotoszyn</span></div>
-    </aside>
+    </div>
   </div>
 
   <a class="hero__scroll" href="#dalej" aria-label="Przejdź do kolejnej sekcji"><span></span>Przewiń</a>
