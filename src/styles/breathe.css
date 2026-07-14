@@ -1,0 +1,431 @@
+/* Editorial spacing and image-led breathing room for the premium redesign. */
+
+.section {
+  padding-block: clamp(140px, 12vw, 190px);
+}
+
+.heading {
+  margin-bottom: clamp(72px, 7vw, 104px);
+}
+
+/* Hero: replace the compact circular composition with one dominant photograph. */
+.hero {
+  min-height: 900px;
+  padding-block: clamp(120px, 10vw, 160px);
+}
+
+.hero__inner {
+  grid-template-columns: minmax(0, .88fr) minmax(520px, 1.12fr);
+  gap: clamp(80px, 8vw, 130px);
+}
+
+.hero__visual {
+  min-height: 700px;
+}
+
+.hero__photo {
+  width: min(650px, 100%);
+  aspect-ratio: 4 / 5;
+  border-radius: 36px;
+  border-width: 12px;
+}
+
+.hero__photo img {
+  height: 110%;
+}
+
+.halo {
+  width: 640px;
+  height: 640px;
+  border-radius: 42%;
+  transform: rotate(-5deg);
+}
+
+.float--top {
+  top: 36px;
+  right: -24px;
+}
+
+.float--bottom {
+  bottom: 30px;
+  left: -34px;
+}
+
+/* A full-width photographic pause between the narrative and the offer. */
+.explorer {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-top: calc(min(72vh, 800px) + clamp(130px, 11vw, 180px));
+  padding-bottom: clamp(150px, 12vw, 200px);
+}
+
+.explorer::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: -2;
+  height: min(72vh, 800px);
+  background:
+    linear-gradient(180deg, rgba(8, 20, 47, .04), rgba(8, 20, 47, .18)),
+    url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2200&q=88') center 58% / cover no-repeat;
+}
+
+.explorer::after {
+  content: '';
+  position: absolute;
+  top: min(72vh, 800px);
+  left: 0;
+  right: 0;
+  z-index: -1;
+  height: 180px;
+  transform: translateY(-100%);
+  background: linear-gradient(180deg, transparent, var(--cream));
+}
+
+.explorer__layout {
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 42px;
+}
+
+.explorer__nav {
+  gap: 12px;
+}
+
+.service-tab {
+  min-height: 76px;
+  padding-inline: 22px;
+}
+
+.service-panel {
+  grid-template-columns: minmax(0, 1.38fr) minmax(340px, .62fr);
+  min-height: 740px;
+  border-radius: 28px;
+}
+
+.service-panel__copy {
+  padding: clamp(52px, 5vw, 78px);
+}
+
+.service-panel__image img {
+  transition: transform .9s cubic-bezier(.2, .7, .2, 1);
+}
+
+.service-panel:hover .service-panel__image img {
+  transform: scale(1.035);
+}
+
+/* Turn the process into a full-screen photographic chapter. */
+.process {
+  position: relative;
+  min-height: 920px;
+  display: flex;
+  align-items: center;
+  padding-block: clamp(150px, 12vw, 200px);
+  background:
+    linear-gradient(90deg, rgba(5, 14, 34, .96) 0%, rgba(8, 20, 47, .88) 46%, rgba(8, 20, 47, .64) 100%),
+    url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=2200&q=88') center / cover no-repeat;
+  background-attachment: fixed;
+}
+
+.process__inner {
+  gap: clamp(90px, 10vw, 150px);
+}
+
+.process__intro {
+  max-width: 590px;
+}
+
+.steps {
+  padding: 36px 40px 36px 78px;
+  border: 1px solid rgba(255, 255, 255, .14);
+  border-radius: 28px;
+  background: rgba(5, 14, 34, .52);
+  backdrop-filter: blur(18px);
+}
+
+.step {
+  padding-block: 32px;
+}
+
+/* Replace the abstract claims graphic with one strong image. */
+.claims {
+  padding-block: clamp(150px, 12vw, 200px);
+}
+
+.claims__inner {
+  grid-template-columns: minmax(0, 1.22fr) minmax(360px, .78fr);
+  gap: clamp(90px, 9vw, 140px);
+}
+
+.claims__visual {
+  min-height: 720px;
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, rgba(8, 20, 47, .04), rgba(8, 20, 47, .62)),
+    url('https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1800&q=88') center / cover no-repeat;
+}
+
+.claims__visual .alert {
+  display: none;
+}
+
+.claims__visual .note {
+  border: 1px solid rgba(255, 255, 255, .66);
+  background: rgba(255, 255, 255, .9);
+  backdrop-filter: blur(12px);
+}
+
+.claims__visual .note--1 {
+  top: auto;
+  bottom: 25%;
+}
+
+.claims__visual .note--2 {
+  top: auto;
+  bottom: 15%;
+}
+
+.claims__visual .note--3 {
+  left: auto;
+  right: 8%;
+  bottom: 5%;
+}
+
+.stats {
+  padding-block: clamp(88px, 8vw, 120px);
+}
+
+.reviews {
+  padding-block: clamp(150px, 12vw, 200px);
+}
+
+.reviews__grid {
+  gap: 28px;
+}
+
+.review {
+  min-height: 410px;
+  padding: 38px;
+}
+
+.locations {
+  padding-block: clamp(150px, 12vw, 200px);
+}
+
+.location-card {
+  min-height: 560px;
+  padding: clamp(48px, 6vw, 78px);
+  border-radius: 28px;
+}
+
+.faq {
+  padding-block: clamp(150px, 12vw, 200px);
+}
+
+.contact {
+  padding-block: clamp(150px, 12vw, 200px);
+}
+
+@media (max-width: 1180px) {
+  .hero__inner {
+    grid-template-columns: minmax(0, .9fr) minmax(460px, 1.1fr);
+    gap: 64px;
+  }
+
+  .hero__visual {
+    min-height: 620px;
+  }
+
+  .hero__photo {
+    width: min(560px, 100%);
+  }
+
+  .halo {
+    width: 560px;
+    height: 560px;
+  }
+
+  .service-panel {
+    grid-template-columns: 1.2fr .8fr;
+  }
+}
+
+@media (max-width: 1050px) {
+  .hero__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__visual {
+    min-height: 680px;
+  }
+
+  .explorer {
+    padding-top: calc(min(60vh, 650px) + 120px);
+  }
+
+  .explorer::before {
+    height: min(60vh, 650px);
+  }
+
+  .explorer::after {
+    top: min(60vh, 650px);
+  }
+
+  .explorer__layout {
+    grid-template-columns: 250px minmax(0, 1fr);
+    gap: 28px;
+  }
+
+  .service-panel {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .service-panel__image {
+    min-height: 540px;
+  }
+
+  .process {
+    background-attachment: scroll;
+  }
+
+  .claims__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .claims__visual {
+    min-height: 680px;
+  }
+}
+
+@media (max-width: 760px) {
+  .section,
+  .reviews,
+  .locations,
+  .faq,
+  .contact,
+  .claims {
+    padding-block: 96px;
+  }
+
+  .heading {
+    margin-bottom: 52px;
+  }
+
+  .hero {
+    padding-block: 76px 100px;
+  }
+
+  .hero__inner {
+    gap: 64px;
+  }
+
+  .hero__visual {
+    min-height: 520px;
+  }
+
+  .hero__photo {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 24px;
+  }
+
+  .halo {
+    width: 420px;
+    height: 420px;
+  }
+
+  .float--top {
+    right: 0;
+  }
+
+  .float--bottom {
+    left: 0;
+  }
+
+  .explorer {
+    padding-top: calc(46vh + 96px);
+    padding-bottom: 104px;
+  }
+
+  .explorer::before {
+    height: 46vh;
+    min-height: 360px;
+  }
+
+  .explorer::after {
+    top: max(46vh, 360px);
+    height: 120px;
+  }
+
+  .explorer__layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .service-panel__image {
+    min-height: 390px;
+  }
+
+  .service-panel__copy {
+    padding: 34px 24px 42px;
+  }
+
+  .process {
+    min-height: auto;
+    padding-block: 110px;
+    background-position: 62% center;
+  }
+
+  .steps {
+    padding: 20px 22px 20px 55px;
+    border-radius: 20px;
+  }
+
+  .step {
+    padding-block: 26px;
+  }
+
+  .claims__visual {
+    min-height: 520px;
+  }
+
+  .claims__visual .note {
+    font-size: 11px;
+  }
+
+  .claims__visual .note--1 {
+    left: 5%;
+    bottom: 27%;
+  }
+
+  .claims__visual .note--2 {
+    right: 5%;
+    bottom: 16%;
+  }
+
+  .claims__visual .note--3 {
+    right: 5%;
+    bottom: 5%;
+  }
+
+  .review {
+    min-height: 330px;
+    padding: 28px;
+  }
+
+  .location-card {
+    min-height: 430px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-panel__image img {
+    transition: none;
+  }
+
+  .process {
+    background-attachment: scroll;
+  }
+}
