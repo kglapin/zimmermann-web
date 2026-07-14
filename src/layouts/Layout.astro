@@ -6,6 +6,7 @@ import '../styles/v2-contact.css';
 import '../styles/v2-responsive.css';
 import '../styles/v3-claims-local.css';
 import '../styles/v4-maps.css';
+import '../styles/v5-footer-deboss.css';
 
 interface Props {
   title: string;
@@ -35,5 +36,6 @@ const { title, description = "Multiagencja Ubezpieczeniowa Zimmermann - Kalisz i
     <slot />
     <script is:inline defer src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
     <script is:inline defer src="/map-fix.js"></script>
+    <script is:inline defer src="/footer-deboss.js"></script>
   </body>
 </html>
