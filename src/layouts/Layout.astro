@@ -5,6 +5,7 @@ import '../styles/v2-sections.css';
 import '../styles/v2-contact.css';
 import '../styles/v2-responsive.css';
 import '../styles/v3-claims-local.css';
+import '../styles/v4-maps.css';
 
 interface Props {
   title: string;
@@ -20,6 +21,12 @@ const { title, description = "Multiagencja Ubezpieczeniowa Zimmermann - Kalisz i
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/jpg" href="/logo.jpg" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIINfQ3ynh5R7YJbY9J6+4Z5E5Q7YB6X4hA="
+      crossorigin="anonymous"
+    />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -31,5 +38,13 @@ const { title, description = "Multiagencja Ubezpieczeniowa Zimmermann - Kalisz i
   </head>
   <body>
     <slot />
+    <script
+      is:inline
+      defer
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin="anonymous"
+    ></script>
+    <script is:inline defer src="/map-fix.js"></script>
   </body>
 </html>
