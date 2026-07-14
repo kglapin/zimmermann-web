@@ -112,9 +112,46 @@ export const reviews = [
 ] as const;
 
 export const faqs = [
-  ['Czy porównanie jest bezpłatne?', 'Tak. Rozmowa i przygotowanie wariantów nie zobowiązują do zakupu.'],
-  ['Czy polisę można zawrzeć zdalnie?', 'Wiele polis przygotowujemy telefonicznie lub online.'],
-  ['Czy pomagacie po szkodzie?', 'Tak. Wskazujemy pierwsze kroki i właściwy sposób zgłoszenia.'],
+  [
+    'Czy porównanie ofert jest bezpłatne?',
+    'Tak. Rozmowa, analiza potrzeb i przygotowanie wariantów nie zobowiązują do zakupu polisy.',
+  ],
+  [
+    'Czy polisę można zawrzeć zdalnie?',
+    'Wiele ubezpieczeń możemy przygotować telefonicznie lub online. Dostępny sposób zawarcia zależy od rodzaju produktu i procedur danego towarzystwa.',
+  ],
+  [
+    'Jakich informacji potrzebujecie do przygotowania propozycji?',
+    'Zakres danych zależy od ubezpieczenia. Najczęściej potrzebne są podstawowe dane osoby lub firmy, informacje o przedmiocie ubezpieczenia oraz — jeśli ją posiadasz — obecna polisa. Przed rozmową powiemy dokładnie, co warto przygotować.',
+  ],
+  [
+    'Czy porównujecie wyłącznie cenę?',
+    'Nie. Sprawdzamy również zakres ochrony, limity, wyłączenia, udziały własne, warianty Assistance i inne zapisy, które mogą mieć znaczenie przy szkodzie.',
+  ],
+  [
+    'Jak szybko otrzymam propozycje?',
+    'Prostsze warianty często można omówić podczas jednej rozmowy. Przy ubezpieczeniu firmy, gospodarstwa lub bardziej złożonego ryzyka przygotowanie rzetelnego porównania może wymagać dodatkowego czasu.',
+  ],
+  [
+    'Czy pomożecie przy zmianie obecnej polisy?',
+    'Tak. Sprawdzimy termin obecnej umowy i wyjaśnimy, czy wypowiedzenie jest potrzebne oraz jakie kroki należy wykonać, aby zachować ciągłość ochrony.',
+  ],
+  [
+    'Czy mogę uporządkować u Was kilka ubezpieczeń jednocześnie?',
+    'Tak. Możemy przeanalizować między innymi samochód, dom, życie, firmę lub podróże i sprawdzić, czy obecne umowy nie dublują ochrony albo nie pozostawiają istotnych luk.',
+  ],
+  [
+    'Czy obsługujecie klientów spoza Kalisza i Krotoszyna?',
+    'Tak. Wiele spraw prowadzimy zdalnie, o ile pozwala na to rodzaj ubezpieczenia i procedura wybranego towarzystwa.',
+  ],
+  [
+    'Czy pomagacie po wystąpieniu szkody?',
+    'Tak. Pomagamy ustalić właściwy sposób zgłoszenia, potrzebne dokumenty i kolejne kroki. Decyzję w sprawie odpowiedzialności i wypłaty świadczenia podejmuje towarzystwo ubezpieczeniowe.',
+  ],
+  [
+    'Co zrobić, gdy nie wiem, jakiego zakresu ochrony potrzebuję?',
+    'Od tego zaczynamy rozmowę. Najpierw pytamy o sytuację, majątek, zobowiązania i najważniejsze ryzyka, a dopiero później pokazujemy rozwiązania, które warto porównać.',
+  ],
 ] as const;
 
 export const offices: Office[] = [
