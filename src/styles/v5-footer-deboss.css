@@ -1,0 +1,62 @@
+/* True debossed footer word rendered as SVG with an inner-shadow filter. */
+.footer {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.012), transparent 28%),
+    #050e22;
+}
+
+.footer__word {
+  position: absolute;
+  z-index: 0;
+  right: auto;
+  bottom: -22px;
+  left: 50%;
+  width: min(1480px, 112vw);
+  height: auto;
+  color: transparent;
+  font-size: 0;
+  line-height: 0;
+  text-shadow: none;
+  white-space: normal;
+  pointer-events: none;
+  user-select: none;
+  transform: translateX(-50%);
+  opacity: 0.96;
+}
+
+.footer__word::before,
+.footer__word::after {
+  display: none;
+}
+
+.footer-deboss {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.footer-deboss__text {
+  fill: #061128;
+  stroke: rgba(0, 5, 16, 0.24);
+  stroke-width: 0.75px;
+  paint-order: stroke fill;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 178px;
+  font-weight: 700;
+  letter-spacing: -0.055em;
+}
+
+.footer__grid,
+.footer__bottom {
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 760px) {
+  .footer__word {
+    bottom: 36px;
+    width: 176vw;
+    opacity: 0.78;
+  }
+}
