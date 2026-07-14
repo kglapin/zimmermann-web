@@ -1,0 +1,218 @@
+/* Insurer logo marquee */
+.partners {
+  position: relative;
+  overflow: hidden;
+  border-block: 1px solid var(--line);
+  background: #fff;
+}
+
+.partners::before,
+.partners::after {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  bottom: 0;
+  width: clamp(42px, 8vw, 150px);
+  pointer-events: none;
+  content: '';
+}
+
+.partners::before {
+  left: 0;
+  background: linear-gradient(90deg, #fff 12%, rgba(255, 255, 255, 0));
+}
+
+.partners::after {
+  right: 0;
+  background: linear-gradient(270deg, #fff 12%, rgba(255, 255, 255, 0));
+}
+
+.partners__track {
+  width: max-content;
+  display: flex;
+  align-items: center;
+  padding: 22px 0;
+  animation: partner-logo-marquee 42s linear infinite;
+  will-change: transform;
+}
+
+.partners__group {
+  display: flex;
+  align-items: center;
+  gap: clamp(42px, 5vw, 76px);
+  padding-right: clamp(42px, 5vw, 76px);
+}
+
+.partner-logo {
+  width: auto;
+  min-width: 126px;
+  height: 62px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  flex: 0 0 auto;
+  padding: 5px 8px;
+  opacity: 0.78;
+  transform: translateZ(0);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.partner-logo img {
+  width: auto;
+  max-width: 174px;
+  height: auto;
+  max-height: 48px;
+  display: block;
+  object-fit: contain;
+}
+
+.partner-logo:hover {
+  opacity: 1;
+  transform: scale(1.035);
+}
+
+.partner-logo--pzu {
+  min-width: 82px;
+}
+
+.partner-logo--pzu img {
+  max-width: 54px;
+  max-height: 54px;
+}
+
+.partner-logo--generali {
+  min-width: 96px;
+}
+
+.partner-logo--generali img {
+  max-width: 82px;
+  max-height: 58px;
+}
+
+.partner-logo--uniqa img {
+  max-width: 120px;
+  max-height: 56px;
+}
+
+.partner-logo--signal-iduna img {
+  min-width: 172px;
+  max-width: 190px;
+}
+
+.partner-logo--wiener img {
+  max-width: 146px;
+}
+
+.partner-logo--combined img {
+  max-width: 88px;
+}
+
+.partner-logo--combined strong,
+.partner-logo--wordmark strong {
+  font-family: 'DM Sans', Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.partner-logo--wordmark img {
+  width: 34px;
+  height: 34px;
+  max-width: 34px;
+  max-height: 34px;
+  border-radius: 7px;
+}
+
+.partner-logo--warta strong {
+  color: #17355f;
+  font-size: 27px;
+  font-weight: 700;
+  text-transform: lowercase;
+}
+
+.partner-logo--ergo-hestia strong {
+  color: #1a3560;
+  font-size: 17px;
+  letter-spacing: 0.08em;
+}
+
+.partner-logo--compensa strong {
+  color: #08713e;
+  font-size: 19px;
+  letter-spacing: 0.015em;
+}
+
+.partner-logo--link4 strong {
+  color: #e1252f;
+  font-size: 23px;
+  letter-spacing: -0.055em;
+}
+
+.partners:hover .partners__track {
+  animation-play-state: paused;
+}
+
+@keyframes partner-logo-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 760px) {
+  .partners__track {
+    padding: 17px 0;
+    animation-duration: 34s;
+  }
+
+  .partners__group {
+    gap: 36px;
+    padding-right: 36px;
+  }
+
+  .partner-logo {
+    min-width: 104px;
+    height: 52px;
+  }
+
+  .partner-logo img {
+    max-width: 142px;
+    max-height: 41px;
+  }
+
+  .partner-logo--pzu {
+    min-width: 64px;
+  }
+
+  .partner-logo--pzu img {
+    max-width: 45px;
+    max-height: 45px;
+  }
+
+  .partner-logo--generali img {
+    max-width: 68px;
+    max-height: 48px;
+  }
+
+  .partner-logo--wordmark img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .partner-logo--warta strong {
+    font-size: 23px;
+  }
+
+  .partner-logo--signal-iduna img {
+    min-width: 144px;
+    max-width: 154px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .partners__track {
+    animation: none;
+  }
+}
