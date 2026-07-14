@@ -22,6 +22,21 @@ const faqs = [
   ['Czy pomagacie po wystąpieniu szkody?', 'Tak. Pomagamy uporządkować pierwsze kroki, wskazać właściwy kanał zgłoszenia i przygotować potrzebne informacje.'],
   ['Czy zawsze wybieracie najtańszą ofertę?', 'Nie automatycznie. Pokazujemy różnice w cenie i zakresie, aby klient świadomie wybrał właściwy wariant.'],
 ];
+
+const statementLines = [
+  {
+    label: 'Rozpoznajemy potrzeby',
+    text: 'Nie sprzedajemy jednej polisy.',
+  },
+  {
+    label: 'Porównujemy możliwości',
+    text: 'Porównujemy dostępne warianty i tłumaczymy najważniejsze różnice.',
+  },
+  {
+    label: 'Zostajemy po zakupie',
+    text: 'Pomagamy wybrać ochronę, która ma sens także wtedy, gdy wydarzy się szkoda.',
+  },
+];
 ---
 <Layout title="Ubezpieczenia Zimmermann Kalisz i Krotoszyn | Porównanie ofert" description="Rodzinna multiagencja ubezpieczeniowa. Porównujemy oferty ponad 40 towarzystw i pomagamy także po zakupie polisy.">
   <div class="topbar"><div class="shell"><span>Kalisz · Krotoszyn · obsługa stacjonarna i zdalna</span><a href="#szkoda">Potrzebujesz pomocy przy szkodzie?</a></div></div>
@@ -57,7 +72,45 @@ const faqs = [
     <section class="logos"><div class="logos__track">{['PZU','WARTA','ERGO HESTIA','ALLIANZ','GENERALI','COMPENSA','UNIQA','SIGNAL IDUNA','WIENER','LINK4','PZU','WARTA','ERGO HESTIA','ALLIANZ','GENERALI','COMPENSA','UNIQA','SIGNAL IDUNA','WIENER','LINK4'].map((name)=><span>{name}</span>)}</div></section>
 
     <section class="statement" data-statement>
-      <div class="shell"><span class="eyebrow eyebrow--light">Nasza rola</span><p>{'Nie sprzedajemy jednej polisy. Porównujemy dostępne możliwości, tłumaczymy różnice i pomagamy wybrać ochronę, która ma sens również wtedy, gdy wydarzy się szkoda.'.split(' ').map(word => <span class="word">{word}&nbsp;</span>)}</p><footer><span>01</span><small>Najpierw potrzeby. Potem porównanie. Na końcu świadoma decyzja.</small></footer></div>
+      <div class="statement__sticky">
+        <div class="statement__glow" aria-hidden="true"></div>
+        <div class="shell statement__layout">
+          <aside class="statement__rail">
+            <span class="eyebrow eyebrow--light">Nasza rola</span>
+            <div class="statement__index" aria-hidden="true">
+              <strong data-statement-current>01</strong>
+              <i></i>
+              <span>03</span>
+            </div>
+            <div class="statement__phases">
+              {statementLines.map((line, index) => (
+                <span class:list={['statement__phase', { active: index === 0 }]} data-statement-phase>
+                  {line.label}
+                </span>
+              ))}
+            </div>
+          </aside>
+
+          <div class="statement__content">
+            <p aria-label={statementLines.map((line) => line.text).join(' ')}>
+              {statementLines.map((line) => (
+                <span class="statement__line" data-statement-line>
+                  {line.text.split(' ').map((word) => (
+                    <span class="statement__word" data-statement-word>{word}&nbsp;</span>
+                  ))}
+                </span>
+              ))}
+            </p>
+
+            <footer class="statement__footer">
+              <div class="statement__progress" aria-hidden="true">
+                <i data-statement-progress></i>
+              </div>
+              <small>Najpierw potrzeby. Potem porównanie. Na końcu świadoma decyzja.</small>
+            </footer>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section class="section explorer" id="oferta">
@@ -109,11 +162,53 @@ const faqs = [
       document.querySelectorAll('[data-service]').forEach(btn=>btn.addEventListener('click',()=>{const s=data[Number(btn.getAttribute('data-service'))];document.querySelectorAll('[data-service]').forEach(x=>x.classList.toggle('active',x===btn));const panel=document.querySelector('[data-service-panel]');const swap=()=>{panel.querySelector('[data-service-image]').src=s.image;panel.querySelector('[data-service-title]').textContent=s.title;panel.querySelector('[data-service-subtitle]').textContent=s.subtitle;panel.querySelector('[data-service-points]').innerHTML=s.points.map(p=>`<li>${p}</li>`).join('')}; if(window.gsap&&!reduce) gsap.to(panel,{opacity:0,y:10,duration:.2,onComplete:()=>{swap();gsap.to(panel,{opacity:1,y:0,duration:.4})}}); else swap()}));
       const wizard=document.querySelector('[data-wizard]'); if(wizard){wizard.querySelectorAll('[data-type]').forEach(btn=>btn.addEventListener('click',()=>{wizard.querySelector('[name=type]').value=btn.getAttribute('data-type');wizard.querySelector('[data-step="1"]').hidden=true;wizard.querySelector('[data-step="2"]').hidden=false}));wizard.querySelector('[data-back]')?.addEventListener('click',()=>{wizard.querySelector('[data-step="2"]').hidden=true;wizard.querySelector('[data-step="1"]').hidden=false});wizard.querySelector('form')?.addEventListener('submit',e=>{e.preventDefault();const fd=new FormData(e.currentTarget);const msg=`Dzień dobry, proszę o kontakt. Ubezpieczenie: ${fd.get('type')}. Imię: ${fd.get('name')}. Telefon: ${fd.get('phone')}. Informacje: ${fd.get('message')||'brak'}.`; if(/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) location.href=`sms:+48789315400?body=${encodeURIComponent(msg)}`; else {navigator.clipboard?.writeText(msg);wizard.querySelector('[data-status]').hidden=false}})}
       if(reduce||!window.gsap||!window.ScrollTrigger)return; gsap.registerPlugin(ScrollTrigger);
-      gsap.from('.hero__copy>*',{opacity:0,y:35,duration:.85,stagger:.08,ease:'power3.out'}); gsap.from('.hero__visual',{opacity:0,scale:.94,duration:1.1,ease:'power3.out'});
+      gsap.from('.hero__copy>*',{opacity:0,y:35,duration:.85,stagger:.08,ease:'power3.out'});
+      gsap.from('.hero__visual',{opacity:0,scale:.94,duration:1.1,ease:'power3.out'});
       gsap.to('.hero__photo img',{yPercent:8,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1}});
       gsap.utils.toArray('.reveal').forEach(el=>gsap.from(el,{opacity:0,y:28,duration:.7,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%',once:true}}));
       gsap.utils.toArray('.reveal-card').forEach(el=>gsap.from(el,{opacity:0,y:36,duration:.65,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 90%',once:true}}));
-      if(innerWidth>850){const words=gsap.utils.toArray('.word');gsap.set(words,{opacity:.12});gsap.to(words,{opacity:1,stagger:.035,ease:'none',scrollTrigger:{trigger:'.statement',start:'top top',end:'+=150%',pin:true,scrub:true}})}
+
+      if(innerWidth>850){
+        const statement = document.querySelector('[data-statement]');
+        const statementWords = gsap.utils.toArray('[data-statement-word]');
+        const statementLines = gsap.utils.toArray('[data-statement-line]');
+        const statementPhases = gsap.utils.toArray('[data-statement-phase]');
+        const statementProgress = document.querySelector('[data-statement-progress]');
+        const statementCurrent = document.querySelector('[data-statement-current]');
+        const statementGlow = document.querySelector('.statement__glow');
+
+        gsap.set(statementWords,{opacity:.12,y:18,filter:'blur(5px)'});
+        gsap.set(statementLines,{opacity:.72});
+        gsap.set(statementProgress,{scaleX:0,transformOrigin:'left center'});
+        gsap.set(statementGlow,{opacity:.2,xPercent:-18});
+
+        const setStatementPhase = (phaseIndex) => {
+          statementPhases.forEach((phase,index)=>phase.classList.toggle('active',index===phaseIndex));
+          statementLines.forEach((line,index)=>line.classList.toggle('active',index<=phaseIndex));
+          if(statementCurrent) statementCurrent.textContent=String(phaseIndex+1).padStart(2,'0');
+        };
+
+        const statementTimeline = gsap.timeline({
+          scrollTrigger:{
+            trigger:statement,
+            start:'top top+=82',
+            end:'bottom bottom',
+            scrub:.65,
+            invalidateOnRefresh:true,
+            onUpdate:(self)=>{
+              const phaseIndex=Math.min(statementPhases.length-1,Math.floor(self.progress*statementPhases.length));
+              setStatementPhase(phaseIndex);
+            }
+          }
+        });
+
+        statementTimeline
+          .to(statementWords,{opacity:1,y:0,filter:'blur(0px)',duration:1,stagger:{each:.035},ease:'none'},0)
+          .to(statementProgress,{scaleX:1,duration:1,ease:'none'},0)
+          .to(statementGlow,{opacity:.7,xPercent:18,duration:1,ease:'none'},0)
+          .fromTo('.statement__footer small',{opacity:.35,y:14},{opacity:1,y:0,duration:.2,ease:'none'},.78);
+      }
+
       document.querySelectorAll('[data-counter]').forEach(el=>{const obj={v:0};gsap.to(obj,{v:Number(el.dataset.counter),duration:1.5,scrollTrigger:{trigger:el,start:'top 88%',once:true},onUpdate:()=>el.textContent=Math.round(obj.v)+(Number(el.dataset.counter)===40?'+':'')})});
       document.querySelectorAll('.magnetic').forEach(el=>{el.addEventListener('mousemove',e=>{const r=el.getBoundingClientRect();gsap.to(el,{x:(e.clientX-r.left-r.width/2)*.12,y:(e.clientY-r.top-r.height/2)*.12,duration:.2})});el.addEventListener('mouseleave',()=>gsap.to(el,{x:0,y:0,duration:.5,ease:'elastic.out(1,.4)'}))});
     }; document.addEventListener('DOMContentLoaded',init,{once:true});
