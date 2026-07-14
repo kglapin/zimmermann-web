@@ -14,13 +14,14 @@ const {
   noindex = false,
 } = Astro.props;
 
-const canonical = new URL(Astro.url.pathname, Astro.url.origin);
-const socialImage = new URL('/logo.jpg', canonical);
+const siteOrigin = import.meta.env.PUBLIC_SITE_URL || Astro.url.origin;
+const canonical = new URL(Astro.url.pathname, siteOrigin);
+const socialImage = new URL('/logo.jpg', siteOrigin);
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'InsuranceAgency',
   name: business.name,
-  url: canonical.origin,
+  url: siteOrigin,
   description,
   logo: socialImage.href,
   image: socialImage.href,
