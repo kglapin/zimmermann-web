@@ -51,3 +51,16 @@ import Footer from '../components/Footer.astro';
   </main>
   <Footer />
 </Layout>
+
+<style>
+  .legal-page { padding: clamp(90px, 10vw, 150px) 0; background: var(--paper); }
+  .legal-page__inner { max-width: 900px; }
+  .legal-page h1 { margin-top: 22px; font-size: clamp(52px, 7vw, 88px); }
+  .legal-page__lead { max-width: 720px; margin-top: 28px; color: var(--muted); font-size: 19px; }
+  .legal-page section { padding: 34px 0; border-bottom: 1px solid var(--line); }
+  .legal-page section:first-of-type { margin-top: 48px; border-top: 1px solid var(--line); }
+  .legal-page h2 { font-size: clamp(28px, 3vw, 38px); }
+  .legal-page section p { margin-top: 16px; color: var(--muted); }
+  .legal-page section a { color: var(--ink); font-weight: 700; text-decoration: underline; }
+  .legal-page > .shell > .btn { margin-top: 42px; }
+</style>
