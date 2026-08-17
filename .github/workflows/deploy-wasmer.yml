@@ -2,6 +2,11 @@ name: Deploy to Wasmer
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/wasmer-trigger
 
 permissions:
   contents: read
