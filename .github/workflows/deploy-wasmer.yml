@@ -104,5 +104,4 @@ jobs:
           WASMER_OWNER="$(printf '%s' "$WASMER_OWNER" | tr -d '\r\n')"
           export WASMER_TOKEN WASMER_OWNER
           wasmer --version
-          wasmer whoami
-          printf 'y\ny\ny\ny\n' | wasmer deploy
+          printf 'y\ny\ny\ny\n' | wasmer deploy --token "$WASMER_TOKEN"
