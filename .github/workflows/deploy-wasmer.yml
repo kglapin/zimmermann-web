@@ -97,11 +97,12 @@ jobs:
                   - 200
           EOF
 
-      - name: Deploy production build to Wasmer
+      - name: Verify Wasmer identity and deploy
         shell: bash
         run: |
           WASMER_TOKEN="$(printf '%s' "$WASMER_TOKEN" | tr -d '\r\n')"
           WASMER_OWNER="$(printf '%s' "$WASMER_OWNER" | tr -d '\r\n')"
           export WASMER_TOKEN WASMER_OWNER
           wasmer --version
+          wasmer whoami --token "$WASMER_TOKEN"
           printf 'y\ny\ny\ny\n' | wasmer deploy --token "$WASMER_TOKEN"
