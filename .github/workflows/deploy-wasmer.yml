@@ -50,6 +50,11 @@ jobs:
             echo "Missing GitHub Actions secret: WASMER_OWNER"
             exit 1
           fi
+          CLEAN_TOKEN="$(printf '%s' "$WASMER_TOKEN" | tr -d '\r\n')"
+          case "$CLEAN_TOKEN" in
+            wap_*) echo "WASMER_TOKEN format: expected wap_ prefix detected" ;;
+            *) echo "WASMER_TOKEN format is unexpected: expected a token beginning with wap_"; exit 2 ;;
+          esac
 
       - name: Install Wasmer CLI
         shell: bash
@@ -97,12 +102,11 @@ jobs:
                   - 200
           EOF
 
-      - name: Verify Wasmer identity and deploy
+      - name: Deploy production build to Wasmer
         shell: bash
         run: |
           WASMER_TOKEN="$(printf '%s' "$WASMER_TOKEN" | tr -d '\r\n')"
           WASMER_OWNER="$(printf '%s' "$WASMER_OWNER" | tr -d '\r\n')"
           export WASMER_TOKEN WASMER_OWNER
           wasmer --version
-          wasmer whoami --token "$WASMER_TOKEN"
           printf 'y\ny\ny\ny\n' | wasmer deploy --token "$WASMER_TOKEN"
